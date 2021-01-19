@@ -1,6 +1,6 @@
 {
   "name": "new-cerebrum",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Cerebrum is awesome! -  Made with BangaJS",
   "main": "server.js",
   "scripts": {
