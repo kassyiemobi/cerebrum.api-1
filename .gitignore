@@ -1,0 +1,8 @@
+node_modules
+
+# production env files
+.env
+
+# exclude files in uploads
+uploads/*
+!uploads/.gitkeep
