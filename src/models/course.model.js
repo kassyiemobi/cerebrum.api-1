@@ -3,12 +3,12 @@ const Schema = mongoose.Schema;
 
 const courseSchema = new Schema({
       name:{
-          type:string,
+          type: String,
           required:[true, 'course name is required!']
 
      },
      img:{
-          type: string,
+          type: String,
           required:[true,'course image must be included']
      },
 
@@ -18,7 +18,7 @@ const courseSchema = new Schema({
      },
 
      description :{
-          type: string,
+          type: String,
           required:[true,'A course description is required']
      }
 });
