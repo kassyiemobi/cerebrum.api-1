@@ -3,9 +3,15 @@ const Schema = mongoose.Schema;
 
 const moduleSchema = new Schema({
   name: {
-    type: string,
+    type: String,
     required: [true, "Module name is required!"],
   },
+
+  module:{
+    type:Schema.Types.ObjectId,
+    required:true,
+    ref:'course'
+  }
 });
 
 

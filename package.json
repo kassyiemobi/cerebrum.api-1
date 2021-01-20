@@ -7,7 +7,11 @@
     "start": "node -r dotenv/config server.js",
     "dev": "nodemon -r dotenv/config server.js dotenv_config_path=./.env.dev"
   },
-  "keywords": ["Learning", "Education", "Knowledge"],
+  "keywords": [
+    "Learning",
+    "Education",
+    "Knowledge"
+  ],
   "license": "ISC",
   "dependencies": {
     "@hapi/joi": "^17.1.1",
