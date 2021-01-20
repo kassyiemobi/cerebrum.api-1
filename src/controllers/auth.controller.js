@@ -7,10 +7,10 @@ const { regValidation, loginValidation } = require("../validators/auth.validator
 class AuthContoller {
   async signup(req, res, next) {
     
-    //Joi checks User Input
-    // const validateInput = regValidation.validate(req.body)
-    // if (validateInput.error) {
-    //  throw new CustomError(validateInput.error.message, 401)}
+    // Joi checks User Input
+    const validateInput = regValidation.validate(req.body)
+    if (validateInput.error) {
+     throw new CustomError(validateInput.error.message, 401)}
 
     const result = await AuthServ.signup(req.body);
     res.status(201).send(response("User created", result));
@@ -18,9 +18,9 @@ class AuthContoller {
 
   async signin(req, res) {
     //Joi checks User Input
-    // const validateInput = loginValidation.validate(req.body)
-    // if (validateInput.error) {
-    //  throw new CustomError(validateInput.error.message, 401)}
+    const validateInput = loginValidation.validate(req.body)
+    if (validateInput.error) {
+     throw new CustomError(validateInput.error.message, 401)}
 
     const result = await AuthServ.signin(req.body);
     res.status(200).send(response("User login successful", result));
