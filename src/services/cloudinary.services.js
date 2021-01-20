@@ -12,8 +12,8 @@ exports.uploads = (file) => {
     return new Promise((resolve) => {
       cloudinary.uploader.upload(
         file,
-        (movie) => {
-          resolve({ url: movie.url, id: movie.public_id });
+        (video) => {
+          resolve({ url: video.url, id: video.public_id });
         },
         { resource_type: "auto" }
       );
