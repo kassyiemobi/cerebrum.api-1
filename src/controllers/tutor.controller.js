@@ -5,7 +5,7 @@ const response = require("./../utils/response");
 class TutorContoller {
 
   async createLesson(req, res) {
-    console.log(req.files[0].path);
+    // console.log(req.files[0].path);
     const result = await TutorServ.createLesson(req.files[0].path);
     res.status(201).send(response("tutor created", result));
   } 

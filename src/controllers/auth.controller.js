@@ -37,7 +37,7 @@ class AuthContoller {
   }
 
   async VerifyEmail(req, res) {
-    const result = await AuthServ.VerifyEmail(req.body);
+    const result = await AuthServ.VerifyEmail(req.query);
     res.status(200).send(response("Email verified successfully", result));
   }
 
