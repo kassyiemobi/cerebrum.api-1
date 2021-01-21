@@ -7,7 +7,7 @@ const moduleSchema = new Schema({
     required: [true, "Module name is required!"],
   },
 
-  module:{
+  course:{
     type:Schema.Types.ObjectId,
     required:true,
     ref:'course'

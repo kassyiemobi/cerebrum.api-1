@@ -14,7 +14,7 @@ const courseSchema = new Schema({
 
   tutor: [{ 
        type: Schema.Types.ObjectId, 
-       ref: "tutor" }],
+       ref: "user" }],
 
   price: {
     type: Number,
@@ -29,9 +29,9 @@ const courseSchema = new Schema({
 
 courseSchema.pre(/^find/, async function (next) {
      await this.populate({
-          path: "tutor",
-          select: "",
-  });
+       path: "tutor",
+       select: "firstName lastName",
+     });
 });
 
 
