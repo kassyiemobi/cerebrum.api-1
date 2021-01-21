@@ -14,6 +14,12 @@ const lessonSchema = new Schema({
     type: String,
     required: [true, "Lesson description is required"],
   },
+
+  module: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "module",
+  },
 });
 
 

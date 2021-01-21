@@ -27,6 +27,6 @@ function auth(roles = []) {
 
           next();
      }
-}
+};
 
 module.exports = auth

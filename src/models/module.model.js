@@ -6,6 +6,12 @@ const moduleSchema = new Schema({
     type: String,
     required: [true, "Module name is required!"],
   },
+
+  course:{
+    type:Schema.Types.ObjectId,
+    required:true,
+    ref:'course'
+  }
 });
 
 

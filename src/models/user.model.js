@@ -7,12 +7,12 @@ const validator = require('validator')
 
 const userSchema = new Schema(
   {
-    firstname: {
+    firstName: {
       type: String,
       trim: true,
       required: [true, "First Name is required"],
     },
-    lastname: {
+    lastName: {
       type: String,
       trim: true,
       required: [true, "last Name is required"],
