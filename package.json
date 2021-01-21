@@ -1,7 +1,7 @@
 {
   "name": "new-cerebrum",
-  "version": "0.0.1",
-  "description": "Cerebrum is awesome! -  Made with BangaJS",
+  "version": "0.0.0",
+  "description": "Cerebrum is awesome! -  Built by CASTUS",
   "main": "server.js",
   "scripts": {
     "start": "node -r dotenv/config server.js",
@@ -16,11 +16,13 @@
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "bcrypt": "^5.0.0",
+    "cloudinary": "^1.23.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "express-session": "1.17.1",
+    "formidable": "^1.2.2",
     "helmet": "^4.2.0",
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",

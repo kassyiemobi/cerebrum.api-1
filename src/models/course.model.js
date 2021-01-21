@@ -12,9 +12,12 @@ const courseSchema = new Schema({
     required: [true, "course image must be included"],
   },
 
-  tutor: [{ 
-       type: Schema.Types.ObjectId, 
-       ref: "user" }],
+  tutor: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
+  ],
 
   price: {
     type: Number,
@@ -28,11 +31,10 @@ const courseSchema = new Schema({
 });
 
 courseSchema.pre(/^find/, async function (next) {
-     await this.populate({
-       path: "tutor",
-       select: "firstName lastName",
-     });
+  await this.populate({
+    path: "tutor",
+    select: "firstName lastName",
+  });
 });
 
-
-module.exports = mongoose.model("course", courseSchema)
+module.exports = mongoose.model("course", courseSchema);

@@ -7,7 +7,7 @@ const { regValidation, loginValidation } = require("../validators/auth.validator
 class AuthContoller {
   async signup(req, res, next) {
     
-    //Joi checks User Input
+    // Joi checks User Input
     const validateInput = regValidation.validate(req.body)
     if (validateInput.error) {
      throw new CustomError(validateInput.error.message, 401)}
@@ -37,7 +37,7 @@ class AuthContoller {
   }
 
   async VerifyEmail(req, res) {
-    const result = await AuthServ.VerifyEmail(req.body);
+    const result = await AuthServ.VerifyEmail(req.query);
     res.status(200).send(response("Email verified successfully", result));
   }
 
