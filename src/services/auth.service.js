@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt")
 const crypto = require("crypto")
 
 const User = require("./../models/user.model");
-const Token = require("./../models/token.model");
+const Token = require("./../models/token.model");   
 const MailServ = require("./../services/mail.service");
 const CustomError = require("./../utils/custom-error");
 const { JWT_SECRET, BCRYPT_SALT, url } = require("./../config");
@@ -21,7 +21,7 @@ class AuthService {
 
     // Request email verification
     await this.RequestEmailVerification(user.email)
-
+ 
     return data = {
       uid: user._id,
       email: user.email,
