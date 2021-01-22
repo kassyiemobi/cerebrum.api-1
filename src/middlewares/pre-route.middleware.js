@@ -2,6 +2,7 @@ const express = require('express');
 const helmet = require("helmet");
 const morgan = require('morgan');
 const cors = require("cors")
+const formidable = require("formidable")
 
 module.exports = (app) => {
      app.use(cors())
