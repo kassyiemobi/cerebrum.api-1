@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 
 const learnerCoursesSchema = new Schema({
-    course:{
+    courseId:{
         type: mongoose.Schema.ObjectId,
         ref: "Course",
     },
@@ -21,7 +21,7 @@ learnerCoursesSchema.pre(/^find/, async function (next) {
   });
 });
 
-const LearnerCourses = mongoose.model("Learnercourses", learnerCoursesSchema);
+const learnerCourses = mongoose.model("Learnercourses", learnerCoursesSchema);
 
-module.exports = LearnerCourses;
+module.exports = learnerCourses;
 

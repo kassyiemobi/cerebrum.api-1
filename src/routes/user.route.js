@@ -10,7 +10,6 @@ router.get("/:userId", auth(role.USER), UserCtrl.getOne);
 router.put("/:userId", auth(role.USER), upload("image"), UserCtrl.update);
 router.delete("/:userId", auth(role.USER), UserCtrl.delete);
 router.delete("/delete/all", UserCtrl.deleteAll);
-router.get("/:userId/courses", auth(role.USER), UserCtrl.getAllCourses);
 
 
-module.exports = router
+module.exports = router 
