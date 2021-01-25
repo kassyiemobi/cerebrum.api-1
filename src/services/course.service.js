@@ -9,9 +9,6 @@ class CourseService {
   async getAll() {
     return await Course.find({});
   }
-  async getThemAll() {
-    return await Course.find({});
-  }
 
   async getOne(courseId) {
     const course = await Course.findOne({ _id: courseId });
@@ -20,23 +17,7 @@ class CourseService {
     return course;
   }
 
-  async update(courseId, data) {
-    const course = await Course.findByIdAndUpdate(
-      { _id: courseId },
-      { $set: data },
-      { new: true }
-    );
-
-    if (!course) throw new CustomError("Course dosen't exist", 404);
-
-    return course;
-  }
-
-  async delete(courseId) {
-    const course = await Course.findOne({ _id: courseId });
-    course.remove();
-    return course;
-  }
+ 
 }
 
 module.exports = new CourseService();

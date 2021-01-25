@@ -28,12 +28,18 @@ const courseSchema = new Schema({
     type: String,
     required: [true, "A course description is required"],
   },
+  isActive: {
+    type: String,
+    trim: true,
+    enum: ["user", "tutor", "admin"],
+    default: "true",
+  },
 });
 
 courseSchema.pre(/^find/, async function (next) {
   await this.populate({
     path: "tutor",
-    select: "firstName lastName",
+    select: "firstName lastName img",
   });
 });
 

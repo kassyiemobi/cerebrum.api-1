@@ -1,42 +1,41 @@
 const CustomError = require("./../utils/custom-error");
+const TutorCourses = require ("./../models/tutor.model") 
 
 class TutorService {
-
-  async createLesson(data) {
-    console.log(data);
-    return data;
-    // return await new Tutor(data).save();
+  async create(data) {
+    return await new Course(data).save();
   }
 
+//for the tutor to find his own courses
   async getAll() {
-    // return await Tutor.find({});
+    return await TutorCourses.find({user: userId});
   }
 
-  async getOne(tutorId) {
-    // const tutor = await Tutor.findOne({ _id: tutorId });
-    // if (!tutor) throw new CustomError("Tutor does not exists");
-
-    // return tutor
+// to find one of the tutors courses
+  async getOne(courseId) {
+    
+    const course = await Course.findOne({ _id: courseId });
+    if (!course) throw new CustomError("Course does not exists")
   }
+  
+// for tutor to update his courses
+  async updateCourses(courseId, data) {
+    const course = await Course.findByIdAndUpdate(
+      { _id: courseId },
+      { $set: data },
+      { new: true }
+    );
 
-  async update(tutorId, data) {
-    // const tutor = await Tutor.findByIdAndUpdate(
-    // { _id: tutorId },
-    // { $set: data },
-    // { new: true }
-    // );
+    if (!course) throw new CustomError("Course dosen't exist", 404);
 
-    // if (!tutor) throw new CustomError("Tutor dosen't exist", 404);
-
-    // return tutor;
+    return course;
   }
-
-  async delete(tutorId) {
-    // const tutor = await Tutor.findOne({ _id: tutorId });
-    // tutor.remove()
-    // return tutor
+//for tutor to delete his courses
+  async deleteCourses(courseId) {
+    const course = await Course.findByIdAndDelete({ _id: courseId });
+    course.remove();
+    return course;
   }
-
 }
 
 module.exports = new TutorService();
