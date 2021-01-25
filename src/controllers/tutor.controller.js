@@ -4,15 +4,6 @@ const response = require("./../utils/response");
 
 class TutorContoller {
   async courseCreate(req, res) {
-
-  async createLesson(req, res) {
-    console.log(req.file);
-
-    // console.log(req.files.video.name)
-    // const result = await TutorServ.createLesson(req.files[0].path);
-    res.status(201).send(response("tutor created", result));
-  } 
-    console.log('joshua is bae')
     const result = await TutorServ.create(req.body);
     res.status(201).send(response("course created", result));
   }
