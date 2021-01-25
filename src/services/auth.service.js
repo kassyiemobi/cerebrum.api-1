@@ -80,10 +80,8 @@ class AuthService {
     const user = await User.findOne({ email })
     if (!user) throw new CustomError("Email does not exist")
     if (user.isVerified) throw new CustomError("Email is already verified")
-
     let token = await Token.findOne({ userId: user._id })
     if (token) await token.deleteOne()
-
     let verifyToken = crypto.randomBytes(32).toString("hex")
     const hash = await bcrypt.hash(verifyToken, BCRYPT_SALT);
 
@@ -103,9 +101,7 @@ class AuthService {
 
   // Verify user
   async VerifyEmail(data) {
-    console.log(data);
     const { uid, verifyToken } = data
-    console.log(uid);
     const user = await User.findOne({ _id: uid })
     if (!user) throw new CustomError("User does not exist")
     if (user.isVerified) throw new CustomError("Email is already verified")
@@ -117,7 +113,7 @@ class AuthService {
     if (!isValid) throw new CustomError("Invalid or expired password reset token")
 
     await User.updateOne(
-      { _id: userId },
+      { _id: uid },
       { $set: { isVerified: true } },
       { new: true })
 
