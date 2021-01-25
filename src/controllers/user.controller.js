@@ -17,10 +17,7 @@ class UserContoller {
     res.status(200).send(response("User data", result));
   }
 
-  async getAllCourses(req, res) {
-    const result = await UserServ.getAllCourses(req.params.userId);
-    res.status(200).send(response("All user courses", result));
-  }
+
 
   async update(req, res) {
     const result = await UserServ.update(req.params.userId, req.body);
