@@ -1,16 +1,16 @@
+const { uploads } = require("../services/cloudinary.service");
 const TutorServ = require("./../services/tutor.service");
- 
 const response = require("./../utils/response");
 
 class TutorContoller {
 
-  async createLesson(req, res, next) {
-    // console.log(req.files[0].path);
-    const form = new Formidable();
-    form.parse(req,(err, field, files)=> {
-      // next(res.send(util.inspect{fields,files}))
-    })
-    const result = await TutorServ.createLesson(req.files[0].path);
+  async createLesson(req, res) {
+    console.log(req.file);
+    
+    // console.log(req.files.video.name)
+  
+
+    // const result = await TutorServ.createLesson(req.files[0].path);
     res.status(201).send(response("tutor created", result));
   } 
 

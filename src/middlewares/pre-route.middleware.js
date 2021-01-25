@@ -2,7 +2,8 @@ const express = require('express');
 const helmet = require("helmet");
 const morgan = require('morgan');
 const cors = require("cors")
-const formidable = require("formidable")
+// const formidableMiddleware = require('express-formidable');
+
 
 module.exports = (app) => {
      app.use(cors())
@@ -12,6 +13,6 @@ module.exports = (app) => {
      app.use(express.static("/public"));
      app.use(express.urlencoded({ extended: false }));
      app.use('/uploads', express.static("/uploads"));
-
+     // app.use(formidableMiddleware());
      return app
 }

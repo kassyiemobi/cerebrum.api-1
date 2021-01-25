@@ -17,6 +17,7 @@ class AuthService {
 
     user = new User(data);
     const token = JWT.sign({ id: user._id, role: user.role }, JWT_SECRET);
+    // token.save();
     await user.save();
 
     // Request email verification
@@ -92,7 +93,7 @@ class AuthService {
       createdAt: Date.now()
     }).save()
 
-    const link = `${url.CLIENT_URL}/email-verification?uid=${user._id}&verifyToken=${verifyToken}`
+    const link = `${url.CLIENT_URL}/verify-email/?uid=${user._id}&verifyToken=${verifyToken}`
 
     // Send Mail
     await new MailServ(user).sendEmailVerificationMail(link)
@@ -102,13 +103,14 @@ class AuthService {
 
   // Verify user
   async VerifyEmail(data) {
-    const { userId, verifyToken } = data
-
-    const user = await User.findOne({ _id: userId })
+    console.log(data);
+    const { uid, verifyToken } = data
+    console.log(uid);
+    const user = await User.findOne({ _id: uid })
     if (!user) throw new CustomError("User does not exist")
     if (user.isVerified) throw new CustomError("Email is already verified")
 
-    let VToken = await Token.findOne({ userId })
+    let VToken = await Token.findOne({ userId: uid })
     if (!VToken) throw new CustomError("Invalid or expired password reset token")
 
     const isValid = await bcrypt.compare(verifyToken, VToken.token)
