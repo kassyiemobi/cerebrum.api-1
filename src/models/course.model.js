@@ -24,6 +24,11 @@ const courseSchema = new Schema({
     required: [true, "A course must have a price"],
   },
 
+  category: {
+    type: String,
+    required: [true, "Category is required"]
+  },
+
   description: {
     type: String,
     required: [true, "A course description is required"],

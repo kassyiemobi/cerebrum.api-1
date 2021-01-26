@@ -40,10 +40,14 @@ class AuthService {
     // Check if user exist
     const user = await User.findOne({ email: data.email });
     if (!user) throw new CustomError("Incorrect email or password");
-
+    
     //Check if user password is correct
     const isCorrect = await bcrypt.compare(data.password, user.password)
     if (!isCorrect) throw new CustomError("Incorrect email or password");
+
+    //check if user is verified
+    if (!user.isVerified)  await this.RequestEmailVerification(user.email)
+
 
     const token = await JWT.sign({ id: user._id, role: user.role }, JWT_SECRET, { expiresIn: 60 * 60 });
 
