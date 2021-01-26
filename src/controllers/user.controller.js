@@ -1,5 +1,7 @@
 const UserServ = require("./../services/user.service");
 const response = require("./../utils/response");
+const multer = require ("./../utils/multer")
+
 
 class UserContoller {
   async create(req, res) {
@@ -16,8 +18,6 @@ class UserContoller {
     const result = await UserServ.getOne(req.params.userId);
     res.status(200).send(response("User data", result));
   }
-
-
 
   async update(req, res) {
     const result = await UserServ.update(req.params.userId, req.body);
