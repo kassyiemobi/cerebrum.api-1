@@ -1,15 +1,14 @@
-const upload = require("./../utils/multer")
+const upload = require("../utils/memoryStorage");
 
-async function addPathToBody(req, res, next) {
-     if (req.files)
-          req.body["images"] = req.files.map(file => file.path.replace("\\", "/"))
-     
-     if (req.file) 
-          req.body["image"] = req.file.path.replace("\\", "/")
+// async function addPathToBody(req, res, next) {
+//   if (req.files)
+//     req.body["images"] = req.files.map((file) => file.path.replace("\\", "/"));
 
-     next();
-}
+//   if (req.file) req.body["image"] = req.file.path.replace("\\", "/");
+
+//   next();
+// }
 
 module.exports = (field) => {
-     return [upload.single(field), addPathToBody]
-}
+  return [upload.single(field)];
+};

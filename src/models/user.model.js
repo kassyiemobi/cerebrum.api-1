@@ -22,22 +22,29 @@ const userSchema = new Schema(
       trim: true,
       unique: true,
       required: [true, "Email is required"],
-      validate: [validator.isEmail, "Your email must be in this format: yourname@domain.com"]
+      validate: [
+        validator.isEmail,
+        "Your email must be in this format: yourname@domain.com",
+      ],
     },
     password: {
       type: String,
-      required: [true, "Your password is required"]
+      required: [true, "Your password is required"],
     },
-    img: {
+    image_url: {
       type: String,
+      default: "../../uploads/default.png",
+    },
+    image_name: {
+      type: String,
+      default: "",
     },
     role: {
       type: String,
       trim: true,
       enum: ["learner", "tutor", "admin"],
       default: "user",
-      required: [true, "User role is required"]
-
+      required: [true, "User role is required"],
     },
     isActive: {
       type: Boolean,
@@ -46,10 +53,10 @@ const userSchema = new Schema(
     isVerified: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 
