@@ -1,4 +1,4 @@
-const { uploads } = require("../services/cloudinary.service");
+const { uploads, cloudUpload } = require("../services/cloudinary.service");
 const TutorServ = require("./../services/tutor.service");
 const response = require("./../utils/response");
 
@@ -13,10 +13,14 @@ class TutorContoller {
     res.status(201).send(response("Module created", result));
   }
 
-   async lessonCreate(req, res) {
-    const result = await TutorServ.lessonCreate(req.body);
-    res.status(201).send(response("lesson created", result));
-  
+  async lessonCreate(req, res) {
+   const cloudResponse = await cloudUpload(req.file.path,(err, result)=>{
+     if(err) throw new CustomError(err)
+   })
+
+    const result = await TutorServ.lessonCreate(req.body,cloudResponse);
+    res.status(201).send(response("Lesson successfully created", result));
+
   }
 
   async getAll(req, res) {

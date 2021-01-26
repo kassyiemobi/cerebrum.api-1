@@ -9,29 +9,29 @@ cloudinary.config({
     api_secret: cloud.API_SECRET,
 });
 
-// exports.uploads = (file) => {
-//     return new Promise((resolve) => {
-//       cloudinary.uploader.upload(
-//         file,
-//         (video) => {
-//           resolve({ url: video.url, id: video.public_id });
-//         },
-//         { resource_type: "auto" }
-//       );
-//     });
-//   };
 
 
-  const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-      folder: 'cerebrum',
-      format: async (req, file) => 'mp4', // supports promises as well
-      public_id: (req, file) => 'computed-filename-using-request',
+  const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/lessons')
     },
-  });
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+      cb(null, uniqueSuffix + '-' + file.originalname)
+    }
+  })
+  
+
+  cloudUpload = async (file) => {
+    const response = await cloudinary.v2.uploader.upload(file, {
+      resource_type: 'video',
+      folder: 'cerebrum/lessons',
+    });
+  
+    return response;
+  };
    
-const parser = multer ({ storage: storage }); 
+const upload = multer ({ storage: storage }); 
 
 
-module.exports =  parser 
+module.exports =  {upload, cloudUpload}
