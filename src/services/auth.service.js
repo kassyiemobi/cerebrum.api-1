@@ -56,6 +56,9 @@ class AuthService {
 
     return (data = {
       uid: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      img:  user.img_url,
       email: user.email,
       role: user.role,
       verified: user.isVerified,

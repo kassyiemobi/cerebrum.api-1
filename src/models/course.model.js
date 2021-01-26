@@ -7,7 +7,7 @@ const courseSchema = new Schema({
     type: String,
     required: [true, "course name is required!"],
   },
-  img: {
+  img_url: {
     type: String,
     required: [true, "course image must be included"],
   },
