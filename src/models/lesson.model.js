@@ -14,7 +14,10 @@ const lessonSchema = new Schema({
     type: String,
     required: [true, "Lesson description is required"],
   },
-
+  cloudinary : {
+    type: String,
+    conditions: [{}]
+  },
   module: {
     type: Schema.Types.ObjectId,
     required: true,
