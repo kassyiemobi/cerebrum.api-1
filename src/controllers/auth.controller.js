@@ -1,16 +1,24 @@
 const { validate } = require("../models/user.model");
+const streamifier = require("streamifier");
 const AuthServ = require("../services/auth.service");
+const UserService = require("../services/user.service");
 const CustomError = require("../utils/custom-error");
+const uploadStream = require("../utils/uploadStream");
 const response = require("../utils/response");
-const { regValidation, loginValidation } = require("../validators/auth.validator");
+const {
+  regValidation,
+  loginValidation,
+} = require("../validators/auth.validator");
+
+const cloudinary = require("../services/cloudinary2.service");
 
 class AuthContoller {
   async signup(req, res, next) {
-    
     // Joi checks User Input
-    const validateInput = regValidation.validate(req.body)
+    const validateInput = regValidation.validate(req.body);
     if (validateInput.error) {
-     throw new CustomError(validateInput.error.message, 401)}
+      throw new CustomError(validateInput.error.message, 401);
+    }
 
     const result = await AuthServ.signup(req.body);
     res.status(201).send(response("User created", result));
@@ -18,9 +26,10 @@ class AuthContoller {
 
   async signin(req, res) {
     //Joi checks User Input
-    const validateInput = loginValidation.validate(req.body)
+    const validateInput = loginValidation.validate(req.body);
     if (validateInput.error) {
-     throw new CustomError(validateInput.error.message, 401)}
+      throw new CustomError(validateInput.error.message, 401);
+    }
 
     const result = await AuthServ.signin(req.body);
     res.status(200).send(response("User login successful", result));
@@ -48,6 +57,16 @@ class AuthContoller {
   async resetPassword(req, res) {
     const result = await AuthServ.resetPassword(req.body);
     res.status(200).send(response("Password updated", result));
+  }
+  async updateProfile(req, res) {
+    const result = await uploadStream(req.file.buffer);
+
+    console.log(req.$user);
+
+    await UserService.update(req.$user._id, { image_url: result.secure_url });
+    res
+      .status(200)
+      .send(response("profile updated", { image_url: result.secure_url }));
   }
 }
 
