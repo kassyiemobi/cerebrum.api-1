@@ -5,7 +5,7 @@ class CategoryService {
   async create(data) {
     //check if category is added already
     let name =  data.name
-    const category =  Category.findOne({name: name})
+    const category =  await Category.findOne({name: name})
     if (category) throw new CustomError(`Category already added`)
 
     return await new Category(data).save();

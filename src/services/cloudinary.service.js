@@ -10,7 +10,6 @@ cloudinary.config({
 });
 
 
-
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'uploads/lessons')
@@ -22,7 +21,7 @@ cloudinary.config({
   })
   
 
-  cloudUpload = async (file) => {
+  cloudUploadVideo = async (file) => {
     const response = await cloudinary.v2.uploader.upload(file, {
       resource_type: 'video',
       folder: 'cerebrum/lessons',
@@ -34,4 +33,4 @@ cloudinary.config({
 const upload = multer ({ storage: storage }); 
 
 
-module.exports =  {upload, cloudUpload}
+module.exports =  {upload, cloudUploadVideo}

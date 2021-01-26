@@ -35,9 +35,8 @@ const courseSchema = new Schema({
   },
   isActive: {
     type: String,
-    trim: true,
-    enum: ["user", "tutor", "admin"],
-    default: "true",
+    enum: [true, false],
+    default: true,
   },
 });
 

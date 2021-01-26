@@ -1,7 +1,8 @@
 const CustomError = require("./../utils/custom-error");
-const TutorCourses = require ("./../models/tutor.model") 
+const Course = require ("./../models/tutor.model") 
 
 class TutorService {
+
   async create(data) {
     return await new Course(data).save();
   }
