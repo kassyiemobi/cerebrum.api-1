@@ -1,40 +1,40 @@
-const multer = require("multer");
-const shortid = require("shortid");
-const CustomError = require("./custom-error");
+// const multer = require("multer");
+// const shortid = require("shortid");
+// const CustomError = require("./custom-error");
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Store files in "uploads" folder
-    cb(null, "uploads");
-  },
-  filename: (req, file, cb) => {
-    // Generate unique filename form current date and shortid
-    const fileExt = file.originalname.split(".").pop();
-    let filename = `${shortid.generate()}_${new Date().getTime()}.${fileExt}`;
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     // Store files in "uploads" folder
+//     cb(null, "uploads");
+//   },
+//   filename: (req, file, cb) => {
+//     // Generate unique filename form current date and shortid
+//     const fileExt = file.originalname.split(".").pop();
+//     let filename = `${shortid.generate()}_${new Date().getTime()}.${fileExt}`;
 
-    cb(null, filename);
-  },
-});
+//     cb(null, filename);
+//   },
+// });
 
-const memoryStorage = multer.memoryStorage();
+// const memoryStorage = multer.memoryStorage();
 
-const limits = {
-  // Maximum file size of 5mb
-  fileSize: 5 * 1024 * 1024,
-};
+// const limits = {
+//   // Maximum file size of 5mb
+//   fileSize: 5 * 1024 * 1024,
+// };
 
-const fileFilter = (req, file, cb) => {
-  //Accepted file types
-  const mimeTypes = ["image/jpeg", "image/png"];
+// const fileFilter = (req, file, cb) => {
+//   //Accepted file types
+//   const mimeTypes = ["image/jpeg", "image/png"];
 
-  // Check if file type is accepted
-  if (/(png|jpg|jpeg|webp)/.test(file.mimetype.toLowerCase())) {
-    cb(null, true);
-  } else {
-    cb(new CustomError("Invalid file type", 400), false);
-  }
-};
+//   // Check if file type is accepted
+//   if (/(png|jpg|jpeg|webp)/.test(file.mimetype.toLowerCase())) {
+//     cb(null, true);
+//   } else {
+//     cb(new CustomError("Invalid file type", 400), false);
+//   }
+// };
 
-exports.memoryStorage = multer({ storage: memoryStorage, limits, fileFilter });
+// exports.memoryStorage = multer({ storage: memoryStorage, limits, fileFilter });
 
-module.exports = multer({ storage, limits, fileFilter });
+// module.exports = multer({ storage, limits, fileFilter });
