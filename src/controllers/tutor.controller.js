@@ -1,11 +1,17 @@
 const { uploads, cloudUpload } = require("../services/cloudinary.service");
 const TutorServ = require("./../services/tutor.service");
 const response = require("./../utils/response");
+const uploadStream = require("../utils/uploadStream");
+const cloudinary = require("../services/cloudinary2.service");
+const multerStorage = require ("../utils/memoryStorage");
+
 
 class TutorContoller {
   async courseCreate(req, res) {
-    const result = await TutorServ.create(req.body);
-    res.status(201).send(response("course created", result));
+    const result = await uploadStream(req.file.buffer);
+    const body = {...req.body, img: result.secure_url}
+    const response = await TutorServ.create(body);
+    res.status(201).send(response("course created", response));
   }
 
   async moduleCreate(req, res) {
