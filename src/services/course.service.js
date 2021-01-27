@@ -10,7 +10,7 @@ class CourseService {
 
   async getAllLessons(data) {
     console.log(data);
-    return await Lesson.find({course_id:data});
+    return await Lesson.find({course_id:data}, { cloudinary: 0, __v: 0 });
   }
 
   // async getOne(courseId) {
