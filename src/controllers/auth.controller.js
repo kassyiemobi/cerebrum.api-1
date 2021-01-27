@@ -1,16 +1,13 @@
 const { validate } = require("../models/user.model");
-const streamifier = require("streamifier");
 const AuthServ = require("../services/auth.service");
 const UserService = require("../services/user.service");
 const CustomError = require("../utils/custom-error");
-const uploadStream = require("../utils/uploadStream");
 const response = require("../utils/response");
 const {
   regValidation,
   loginValidation,
 } = require("../validators/auth.validator");
 
-const cloudinary = require("../services/cloudinary2.service");
 
 class AuthContoller {
   async signup(req, res, next) {
