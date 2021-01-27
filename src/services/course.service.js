@@ -9,8 +9,8 @@ class CourseService {
   // }
 
   async getAllLessons(data) {
-    course_id = data.courseId
-    return await Lesson.find({course_id});
+    console.log(data);
+    return await Lesson.find({course_id:data});
   }
 
   // async getOne(courseId) {
