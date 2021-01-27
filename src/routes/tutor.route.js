@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const TutorCtrl = require("./../controllers/tutor.controller");
 const multer = require('multer')
-const upload = multer({dest: 'files'})
-// const imageUpload = multer({dest: 'files'})
+const upload = multer({dest: 'uploads'})
+// const imageUpload = multer({dest: 'files'})heroku logs --tail
 
 /*
 Remember to protect all the routes for the user
