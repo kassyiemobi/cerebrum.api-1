@@ -1,5 +1,7 @@
 const CustomError = require("./../utils/custom-error");
 const Course = require ("./../models/tutor.model") 
+const Module= require ("./../models/module.model") 
+const Lesson = require ("./../models/lesson.model") 
 
 class TutorService {
 
@@ -7,9 +9,16 @@ class TutorService {
     return await new Course(data).save();
   }
 
+  async lessonCreate(data,video) {
+    data.video_url = video.secure_url
+    data.cloudinary = video
+    return await new Lesson(data).save();
+  }
+
 //for the tutor to find his own courses
-  async getAll() {
-    return await TutorCourses.find({user: userId});
+  async getAllLessons(data) {
+    course_id = data.courseId
+    return await Lesson.find({course_id});
   }
 
 // to find one of the tutors courses

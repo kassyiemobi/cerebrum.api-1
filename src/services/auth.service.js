@@ -48,8 +48,8 @@ class AuthService {
     if (!isCorrect) throw new CustomError("Incorrect email or password");
 
     //check if user is verified
-    if (!user.isVerified)  await this.RequestEmailVerification(user.email)
-    throw new CustomError("Email not verified, kindly check your email for verification link");
+    // if (!user.isVerified)  await this.RequestEmailVerification(user.email)
+    // throw new CustomError("Email not verified, kindly check your email for verification link");
 
 
     const token = await JWT.sign({ id: user._id, role: user.role }, JWT_SECRET, { expiresIn: 60 * 60 });

@@ -6,7 +6,7 @@ const lessonSchema = new Schema({
     type: String,
     required: [true, "lesson name is required!"],
   },
-  video: {
+  video_url: {
     type: String,
     required: [true, "lesson media must be included"],
   },
@@ -15,14 +15,23 @@ const lessonSchema = new Schema({
     required: [true, "Lesson description is required"],
   },
   cloudinary : {
-    type: String,
+    type: Object,
     conditions: [{}]
   },
-  module: {
-    type: Schema.Types.ObjectId,
-    required: true,
+  module_id: {
+    type: String,
+    // type: Schema.Types.ObjectId,
+    required: [true, "Module ID is required "],
     ref: "module",
+    default: "12345"
   },
+  course_id: {
+    type: String,
+    // type: Schema.Types.ObjectId,
+    required: [true, "Course ID is required "],
+    ref: "course",
+    default: "12345"
+  }
 });
 
 

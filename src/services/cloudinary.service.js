@@ -9,28 +9,16 @@ cloudinary.config({
     api_secret: cloud.API_SECRET,
 });
 
-
-  const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads/lessons')
-    },
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-      cb(null, uniqueSuffix + '-' + file.originalname)
-    }
-  })
   
 
-  cloudUploadVideo = async (file) => {
+  exports.cloudUpload = async (file) => {
     const response = await cloudinary.v2.uploader.upload(file, {
-      resource_type: 'video',
+      resource_type: 'auto',
       folder: 'cerebrum/lessons',
     });
-  
     return response;
   };
    
-const upload = multer ({ storage: storage }); 
+// const cloudUpload = multer ({ storage: storage }); 
 
 
-module.exports =  {upload, cloudUploadVideo}

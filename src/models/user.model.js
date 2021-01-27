@@ -39,6 +39,10 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
+    bio: {
+      type: String,
+      trim: true,
+    },
     role: {
       type: String,
       trim: true,

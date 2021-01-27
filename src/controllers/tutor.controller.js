@@ -1,9 +1,13 @@
-const { uploads, cloudUpload } = require("../services/cloudinary.service");
+const { cloudUpload } = require("../services/cloudinary.service");
 const TutorServ = require("./../services/tutor.service");
 const response = require("./../utils/response");
 
 class TutorContoller {
   async courseCreate(req, res) {
+    //
+    const courseImage = req.files[0].path
+    const upload = await cloudUpload(courseImage)
+
     const result = await TutorServ.create(req.body);
     res.status(201).send(response("course created", result));
   }
@@ -14,11 +18,12 @@ class TutorContoller {
   }
 
   async lessonCreate(req, res) {
-   const cloudResponse = await cloudUpload(req.file.path,(err, result)=>{
-     if(err) throw new CustomError(err)
-   })
-
-    const result = await TutorServ.lessonCreate(req.body,cloudResponse);
+    //upload lesson video to youtube
+    const file = req.files[0].path
+    const upload = await cloudUpload(file)
+    console.log(upload);
+    
+    const result = await TutorServ.lessonCreate(req.body, upload);
     res.status(201).send(response("Lesson successfully created", result));
 
   }
