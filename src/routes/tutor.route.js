@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const TutorCtrl = require("./../controllers/tutor.controller");
-const multer = require('multer')
-const upload = multer({dest: 'uploads'})
+const {upload} = require('../middlewares/multer.middleware')
+// const upload = multer({dest: 'uploads'})
 // const imageUpload = multer({dest: 'files'})heroku logs --tail
 
 /*
