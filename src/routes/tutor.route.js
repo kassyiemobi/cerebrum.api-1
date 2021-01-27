@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const TutorCtrl = require("./../controllers/tutor.controller");
 const multer = require('multer')
-const videoUpload = multer({dest: '../../uploads/lessons'})
-const imageUpload = multer({dest: '../../uploads/images'})
+const videoUpload = multer({dest: '../../files'})
+const imageUpload = multer({dest: '../../files'})
 
 /*
 Remember to protect all the routes for the user
