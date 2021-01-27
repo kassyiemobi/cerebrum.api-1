@@ -1,17 +1,17 @@
 const router = require("express").Router();
 const TutorCtrl = require("./../controllers/tutor.controller");
 const multer = require('multer')
-const videoUpload = multer({dest: '../../files'})
-const imageUpload = multer({dest: '../../files'})
+const upload = multer({dest: 'files'})
+// const imageUpload = multer({dest: 'files'})
 
 /*
 Remember to protect all the routes for the user
 */
 
 
-router.post("/course/create",imageUpload.any("img"), TutorCtrl.courseCreate);
+router.post("/course/create", upload.any("img"), TutorCtrl.courseCreate);
 router.post("/module/create", TutorCtrl.moduleCreate);
-router.post("/lesson/create", videoUpload.any("video"), TutorCtrl.lessonCreate);
+router.post("/lesson/create", upload.any("video"), TutorCtrl.lessonCreate);
 router.get("/course/:tutorId", TutorCtrl.getAllCourse)
 
 
