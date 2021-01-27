@@ -16,8 +16,8 @@ class TutorService {
   }
 
 //for the tutor to find his own courses
-  async getAllLessons(data) {
-    course_id = data.courseId
+  async getAllCourse(data) {
+    course_id = data.tutorId
     return await Lesson.find({course_id});
   }
 

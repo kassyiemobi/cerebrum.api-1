@@ -28,8 +28,8 @@ class TutorContoller {
 
   }
 
-  async getAll(req, res) {
-    const result = await TutorServ.getAll();
+  async getAllCourse(req, res) {
+    const result = await TutorServ.getAllCourse();
     res.status(200).send(response("All tutor courses", result));
   }
 
