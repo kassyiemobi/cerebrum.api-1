@@ -5,7 +5,8 @@ const Lesson = require ("./../models/lesson.model")
 
 class TutorService {
 
-  async create(data) {
+  async courseCreate(data, image) {
+    data.image_url = image.secure_url
     return await new Course(data).save();
   }
 

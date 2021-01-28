@@ -6,7 +6,7 @@ const { upload } = require('../middlewares/multer.middleware')
 // const imageUpload = multer({dest: 'uploads'})
 
 router.post("/sign-up", AuthCtrl.signup);
-router.post("/sign-in", AuthCtrl.signin);
+router.post("/sign-in", auth(), AuthCtrl.signin);
 router.post("/request-email-verification", AuthCtrl.RequestEmailVerification);
 router.post("/verify-email", AuthCtrl.VerifyEmail);
 router.post("/request-password-reset", AuthCtrl.RequestPasswordReset);
