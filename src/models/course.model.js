@@ -42,7 +42,7 @@ const courseSchema = new Schema({
   },
 });
 
-courseSchema.pre(/^find/, async function (next) {
+courseSchema.pre('save', async function (next) {
   await this.populate({
     path: "tutor_id",
     select: "firstName lastName img",
