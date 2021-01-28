@@ -2,11 +2,17 @@ const CustomError = require("./../utils/custom-error");
 const Course = require ("./../models/course.model") 
 const Module= require ("./../models/module.model") 
 const Lesson = require ("./../models/lesson.model") 
+const User = require ("./../models/user.model") 
 
 class TutorService {
 
   async courseCreate(data, image) {
 
+    //check user
+    const user = await User.findOne({_id:data.tutor_id})
+    if(!user) throw new CustomError('this user is not a Registered',401)
+
+    if(user.role !== 'tutor') throw new CustomError("This User is not a tutor!")
     data.image_url = image.secure_url
     return await new Course(data).save();
   }

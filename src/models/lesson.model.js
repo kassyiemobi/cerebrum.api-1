@@ -18,20 +18,28 @@ const lessonSchema = new Schema({
     type: Object,
     conditions: [{}]
   },
-  module_id: {
-    type: String,
-    // type: Schema.Types.ObjectId,
+  module: {
+    type: Schema.Types.ObjectId,
     required: [true, "Module ID is required "],
     ref: "module",
-    default: "12345"
   },
-  course_id: {
-    type: String,
-    // type: Schema.Types.ObjectId,
+  course: {
+    type: Schema.Types.ObjectId,
     required: [true, "Course ID is required "],
     ref: "course",
     default: "12345"
+  },
+},
+  {
+    timestamps: true,
   }
+);
+
+courseSchema.pre(/^find/, async function (next) {
+  await this.populate({
+    path: "course",
+    select: "name tutor price description category",
+  });
 });
 
 

@@ -13,11 +13,11 @@ const courseSchema = new Schema({
     required: [true, "course image must be included"],
   },
 
-  tutor: [
+  tutor_id: [
     {
       type: Schema.Types.ObjectId,
       ref: "user",
-      required: [true, "Tutor Id is req"]
+      required: [true, "Tutor Id is required"]
     },
   ],
 
@@ -44,7 +44,7 @@ const courseSchema = new Schema({
 
 courseSchema.pre(/^find/, async function (next) {
   await this.populate({
-    path: "tutor",
+    path: "tutor_id",
     select: "firstName lastName img",
   });
 });
