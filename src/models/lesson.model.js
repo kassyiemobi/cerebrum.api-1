@@ -41,7 +41,7 @@ lessonSchema.pre(/^find/, async function (next) {
    path: "course_id", 
    select: "name decription price category image_url tutor_id" }
    ).populate({
-    path: "tutor_id",
+    path: "module_id",
     select: "name"
   })); return next()
 })
