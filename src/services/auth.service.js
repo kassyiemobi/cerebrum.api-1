@@ -49,7 +49,7 @@ class AuthService {
     // check if user is verified
     if (!user.isVerified)    
     await this.RequestEmailVerification(user.email)
-    throw new CustomError("Email not verified, kindly check your email for verification link");
+    throw new CustomError("Email not verified, kindly check your email for verification link", 401);
 
     console.log(user.isVerified);
     // await this.RequestEmailVerification(user.email)

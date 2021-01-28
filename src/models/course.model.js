@@ -7,7 +7,7 @@ const courseSchema = new Schema({
     type: String,
     required: [true, "course name is required!"],
   },
-  
+
   image_url: {
     type: String,
     required: [true, "course image must be included"],
@@ -17,6 +17,7 @@ const courseSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "user",
+      required: [true, "Tutor Id is req"]
     },
   ],
 
@@ -27,7 +28,7 @@ const courseSchema = new Schema({
 
   category: {
     type: String,
-    required: [true, "Category is required"]
+    required: [true, "Category is required"] 
   },
 
   description: {
