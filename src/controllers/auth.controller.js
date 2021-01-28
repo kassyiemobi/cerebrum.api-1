@@ -1,16 +1,15 @@
 const { validate } = require("../models/user.model");
-const streamifier = require("streamifier");
 const AuthServ = require("../services/auth.service");
 const UserService = require("../services/user.service");
 const CustomError = require("../utils/custom-error");
-const uploadStream = require("../utils/uploadStream");
 const response = require("../utils/response");
+const { cloudUpload } = require("../services/cloudinary.service");
+
 const {
   regValidation,
   loginValidation,
 } = require("../validators/auth.validator");
 
-const cloudinary = require("../services/cloudinary2.service");
 
 class AuthContoller {
   async signup(req, res, next) {
@@ -59,7 +58,9 @@ class AuthContoller {
     res.status(200).send(response("Password updated", result));
   }
   async updateProfile(req, res) {
-    const result = await uploadStream(req.file.buffer);
+    const file = req.files[0].path
+    const upload = await cloudUpload(file)
+    console.log(upload);
     await UserService.update(req.$user._id, { image_url: result.secure_url });
     res.status(200).send(response("Your profile was successfully updated", { image_url: result.secure_url }));
   }

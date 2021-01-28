@@ -8,7 +8,6 @@ const MailServ = require("./../services/mail.service");
 const CustomError = require("./../utils/custom-error");
 const { JWT_SECRET, BCRYPT_SALT, url } = require("./../config");
 
-const cloudinary = require("../services/cloudinary2.service");
 const path = require("path");
 
 class AuthService {

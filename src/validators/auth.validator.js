@@ -14,12 +14,5 @@ exports.loginValidation = Joi.object({
     password: Joi.string().min(2).max(55).required(),
 });
 
-exports.lessonValidation = Joi.object({
-    name: Joi.string().min(3).required(),
-    description: Joi.string().min(3).required(),
-    courseId: Joi.string().min(3).required(),
-    moduleId: Joi.string().min(3).required(),
- 
-});
 
 

@@ -1,6 +1,5 @@
 const UserServ = require("./../services/user.service");
 const response = require("./../utils/response");
-const multer = require ("./../utils/multer")
 
 
 class UserContoller {

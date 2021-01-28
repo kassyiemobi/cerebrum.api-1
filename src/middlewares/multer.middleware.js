@@ -1,14 +1,11 @@
-const upload = require("../utils/memoryStorage");
+const multer = require('multer')
 
-// async function addPathToBody(req, res, next) {
-//   if (req.files)
-//     req.body["images"] = req.files.map((file) => file.path.replace("\\", "/"));
+exports.upload = multer({dest: 'uploads'})
 
-//   if (req.file) req.body["image"] = req.file.path.replace("\\", "/");
+// const upload = require("../utils/memoryStorage");
 
-//   next();
-// }
 
-module.exports = (field) => {
-  return [upload.single(field)];
-};
+
+// module.exports = (field) => {
+//   return [upload.single(field)];
+// };
