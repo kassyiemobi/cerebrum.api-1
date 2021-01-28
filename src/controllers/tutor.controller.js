@@ -1,9 +1,6 @@
 const { cloudUpload } = require("../services/cloudinary.service");
 const TutorServ = require("./../services/tutor.service");
 const response = require("./../utils/response");
-const uploadStream = require("../utils/uploadStream");
-const cloudinary = require("../services/cloudinary2.service");
-const multerStorage = require ("../utils/memoryStorage");
 
 
 class TutorContoller {
