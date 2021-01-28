@@ -1,24 +1,28 @@
+const Module = require("./../models/module.model");
 const Course = require("./../models/course.model");
 const Lesson = require("./../models/lesson.model");
 const CustomError = require("./../utils/custom-error");
 
 class CourseService {
 
-  // async create(data) {
-  //   return await new Course(data).save();
-  // }
-
-  async getAllLessons(data) {
-    console.log(data);
-    return await Lesson.find({course_id:data}, { cloudinary: 0, __v: 0 });
+  async getAllCourses(data) {
+    const course = await Course.find({_id:data}, { __v: 0 });
+    if (course) {
+    const module = await Module.find({course_id:data}, { __v: 0 }) }
+    
+    if(module) {const lesson = await Lesson.find({course_id:data}, { cloudinary :0, __v: 0 })}
+     
+    return course
   }
 
-  // async getOne(courseId) {
-  //   const course = await Course.findOne({ _id: courseId });
-  //   if (!course) throw new CustomError("Course does not exists");
 
-  //   return course;
-  // }
+  async getAllLessons(data) {
+    return await Lesson.find({course_id:data}, { __v: 0 });
+  }
+
+  async getAllModules(data) {
+    return await Module.find({course_id:data}, { cloudinary: 0, __v: 0 });
+  }
 
  
 }
