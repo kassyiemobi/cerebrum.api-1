@@ -35,7 +35,7 @@ const lessonSchema = new Schema({
   }
 );
 
-courseSchema.pre(/^find/, async function (next) {
+lessonSchema.pre(/^find/, async function (next) {
   await this.populate({
     path: "course",
     select: "name tutor price description category",
