@@ -1,13 +1,20 @@
 const router = require("express").Router();
-const {upload } = require("./../services/cloudinary.service");
 const TutorCtrl = require("./../controllers/tutor.controller");
-// const upload = require("./../middlewares/multer.middleware")
-const auth = require("./../middlewares/auth.middleware");
+const multer = require('multer')
+const videoUpload = multer({dest: '../../uploads/lessons'})
+const imageUpload = multer({dest: '../../uploads/images'})
+
+/*
+Remember to protect all the routes for the user
+*/
 
 
-router.post("/course/create",auth(role.TUTOR), upload("course_image"),TutorCtrl.courseCreate);
+router.post("/course/create",imageUpload.any("img"), TutorCtrl.courseCreate);
 router.post("/module/create", TutorCtrl.moduleCreate);
-router.post("/lesson/create", upload.single("video"), TutorCtrl.lessonCreate);
+router.post("/lesson/create", videoUpload.any("video"), TutorCtrl.lessonCreate);
+
+
+//unused route for now
 router.get("/", TutorCtrl.getAll)
 router.get("/:tutorId" ,TutorCtrl.getOne);
 router.put("/:tutorId" ,TutorCtrl.update);

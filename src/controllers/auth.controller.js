@@ -60,13 +60,8 @@ class AuthContoller {
   }
   async updateProfile(req, res) {
     const result = await uploadStream(req.file.buffer);
-
-    console.log(req.$user);
-
     await UserService.update(req.$user._id, { image_url: result.secure_url });
-    res
-      .status(200)
-      .send(response("profile updated", { image_url: result.secure_url }));
+    res.status(200).send(response("Your profile was successfully updated", { image_url: result.secure_url }));
   }
 }
 

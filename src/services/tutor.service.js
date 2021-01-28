@@ -1,14 +1,28 @@
 const CustomError = require("./../utils/custom-error");
-const TutorCourses = require ("./../models/tutor.model") 
+const Course = require ("./../models/tutor.model") 
+const Module= require ("./../models/module.model") 
+const Lesson = require ("./../models/lesson.model") 
 
 class TutorService {
+
   async create(data) {
     return await new Course(data).save();
   }
 
+  async moduleCreate(course_id,data){
+    return await new Module(course_id, data).save();
+  }
+
+  async lessonCreate(data,video) {
+    data.video_url = video.secure_url
+    data.cloudinary = video
+    return await new Lesson(data).save();
+  }
+
 //for the tutor to find his own courses
-  async getAll() {
-    return await TutorCourses.find({user: userId});
+  async getAllLessons(data) {
+    course_id = data.courseId
+    return await Lesson.find({course_id});
   }
 
 // to find one of the tutors courses

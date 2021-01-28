@@ -1,4 +1,4 @@
-const { uploads, cloudUpload } = require("../services/cloudinary.service");
+const { cloudUpload } = require("../services/cloudinary.service");
 const TutorServ = require("./../services/tutor.service");
 const response = require("./../utils/response");
 const uploadStream = require("../utils/uploadStream");
@@ -8,10 +8,16 @@ const multerStorage = require ("../utils/memoryStorage");
 
 class TutorContoller {
   async courseCreate(req, res) {
-    const result = await uploadStream(req.file.buffer);
+    /*const result = await uploadStream(req.file.buffer);
     const body = {...req.body, img: result.secure_url}
     const response = await TutorServ.create(body);
     res.status(201).send(response("course created", response));
+    */
+    const courseImage = req.files[0].path
+    const upload = await cloudUpload(courseImage)
+
+    const result = await TutorServ.create(req.body);
+    res.status(201).send(response("course created", result));
   }
 
   async moduleCreate(req, res) {
@@ -20,11 +26,12 @@ class TutorContoller {
   }
 
   async lessonCreate(req, res) {
-   const cloudResponse = await cloudUpload(req.file.path,(err, result)=>{
-     if(err) throw new CustomError(err)
-   })
-
-    const result = await TutorServ.lessonCreate(req.body,cloudResponse);
+    //upload lesson video to youtube
+    const file = req.files[0].path
+    const upload = await cloudUpload(file)
+    console.log(upload);
+    
+    const result = await TutorServ.lessonCreate(req.body, upload);
     res.status(201).send(response("Lesson successfully created", result));
 
   }

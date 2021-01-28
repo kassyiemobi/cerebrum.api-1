@@ -9,7 +9,7 @@ const { role, JWT_SECRET } = require("./../config")
  * @param  {any[]} roles List of roles allowed to access the route
  */
 function auth(roles = []) {
-     roles = roles.length > 0 ? roles : role.USER
+     roles = roles.length > 0 ? roles : role.LEARNER
 
      return async (req, res, next) => {
           if (!req.headers.authorization) throw new CustomError("Unauthorized access: Token not found", 401);

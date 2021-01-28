@@ -7,7 +7,7 @@ const courseSchema = new Schema({
     type: String,
     required: [true, "course name is required!"],
   },
-  img: {
+  img_url: {
     type: String,
     required: [true, "course image must be included"],
   },
@@ -39,9 +39,8 @@ const courseSchema = new Schema({
   },
   isActive: {
     type: String,
-    trim: true,
-    enum: ["user", "tutor", "admin"],
-    default: "true",
+    enum: [true, false],
+    default: true,
   },
 });
 
