@@ -25,7 +25,10 @@ const lessonSchema = new Schema({
   },
   course_id: {
     type: Schema.Types.ObjectId,
-    ref: "courses",
+    ref: "course",
+
+
+    
   },
 },
   {
@@ -33,12 +36,15 @@ const lessonSchema = new Schema({
   }
 );
 
-// lessonSchema.pre(/^find/, async function (next) {
-//   await this.populate({
-//     path: "course",
-//     select: "name",
-//   });
-// });
+lessonSchema.pre(/^find/, async function (next) {
+ if(! this.populate({ 
+   path: "course_id", 
+   select: "name decription price category image_url tutor_id" }
+   ).populate({
+    path: "tutor_id",
+    select: "name"
+  })); return next()
+})
 
 
 module.exports = mongoose.model("lesson", lessonSchema)

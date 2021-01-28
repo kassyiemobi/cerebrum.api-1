@@ -13,10 +13,7 @@ class CourseService {
 
 
   async getAllLessons(data) {
-    const lesson = await Lesson.find({course:data}, { __v: 0 }).populate({
-      path: "courses",
-      select: "name" });
-
+    const lesson = await Lesson.find({course_id:data}, { __v: 0 })
     return lesson
   }
 

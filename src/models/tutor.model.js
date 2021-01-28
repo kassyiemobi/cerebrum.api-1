@@ -8,7 +8,7 @@ const tutorCoursesSchema = new Schema({
   },
   tutor: {
     type: mongoose.Schema.ObjectId,
-    ref: "User",
+    ref: "user",
   },
 });
 

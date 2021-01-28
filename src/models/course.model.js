@@ -13,19 +13,18 @@ const courseSchema = new Schema({
     required: [true, "course image must be included"],
   },
 
-  tutor_id: [
-    {
+  tutor_id: {
       type: Schema.Types.ObjectId,
-      ref: "users",
+      ref: "user",
       required: [true, "Tutor Id is required"]
     },
-  ],
+  
 
   price: {
     type: Number,
     required: [true, "A course must have a price"],
   },
-
+ 
   category: {
     type: String,
     required: [true, "Category is required"] 
@@ -42,12 +41,11 @@ const courseSchema = new Schema({
   },
 });
 
-// courseSchema.pre(/^find/, async function (next) {
-//   await this.populate({
-//     path: "tutor_id",
-//     select: "firstName",
-//   });
-//   return next();
-// });
+courseSchema.pre(/^find/, async function (next) {
+  if(! this.populate({ 
+    path: "tutor_id", 
+    select: "firstName lastName image_url" }
+    )); return next()
+ })
 
 module.exports = mongoose.model("course", courseSchema);
