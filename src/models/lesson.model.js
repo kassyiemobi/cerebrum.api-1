@@ -27,7 +27,6 @@ const lessonSchema = new Schema({
     type: Schema.Types.ObjectId,
     required: [true, "Course ID is required "],
     ref: "course",
-    default: "12345"
   },
 },
   {
