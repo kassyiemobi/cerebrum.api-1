@@ -35,12 +35,6 @@ const lessonSchema = new Schema({
   }
 );
 
-lessonSchema.pre(/^find/, async function (next) {
-  await this.populate({
-    path: "course",
-    select: "name tutor price description category",
-  });
-});
 
 
 module.exports = mongoose.model("lesson", lessonSchema)
