@@ -1,11 +1,12 @@
 const CustomError = require("./../utils/custom-error");
-const Course = require ("./../models/tutor.model") 
+const Course = require ("./../models/course.model") 
 const Module= require ("./../models/module.model") 
 const Lesson = require ("./../models/lesson.model") 
 
 class TutorService {
 
   async courseCreate(data, image) {
+
     data.image_url = image.secure_url
     return await new Course(data).save();
   }

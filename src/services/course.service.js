@@ -7,11 +7,6 @@ class CourseService {
 
   async getAllCourses(data) {
     const course = await Course.find({_id:data}, { __v: 0 });
-    if (course) {
-    const module = await Module.find({course_id:data}, { __v: 0 }) }
-    
-    if(module) {const lesson = await Lesson.find({course_id:data}, { cloudinary :0, __v: 0 })}
-     
     return course
   }
 

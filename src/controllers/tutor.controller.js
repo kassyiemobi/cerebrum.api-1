@@ -8,7 +8,7 @@ class TutorContoller {
     const courseImage = req.files[0].path
     const upload = await cloudUpload(courseImage)
 
-    const result = await TutorServ.create(req.body, upload);
+    const result = await TutorServ.courseCreate(req.body, upload);
     res.status(201).send(response("course created", result));
   }
 
