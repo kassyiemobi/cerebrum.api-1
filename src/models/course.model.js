@@ -11,13 +11,12 @@ const courseSchema = new Schema({
   image_url: {
     type: String,
     required: [true, "course image must be included"],
-    default: "https://www.seekpng.com/ima/u2q8u2w7e6y3a9a9/"
   },
 
   tutor_id: [
     {
       type: Schema.Types.ObjectId,
-      ref: "user",
+      ref: "users",
       required: [true, "Tutor Id is required"]
     },
   ],
@@ -43,11 +42,12 @@ const courseSchema = new Schema({
   },
 });
 
-courseSchema.pre('save', async function (next) {
-  await this.populate({
-    path: "tutor_id",
-    select: "firstName lastName image_url",
-  });
-});
+// courseSchema.pre(/^find/, async function (next) {
+//   await this.populate({
+//     path: "tutor_id",
+//     select: "firstName",
+//   });
+//   return next();
+// });
 
 module.exports = mongoose.model("course", courseSchema);

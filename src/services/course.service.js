@@ -1,6 +1,7 @@
 const Module = require("./../models/module.model");
 const Course = require("./../models/course.model");
 const Lesson = require("./../models/lesson.model");
+const User = require("./../models/user.model");
 const CustomError = require("./../utils/custom-error");
 
 class CourseService {
@@ -12,7 +13,11 @@ class CourseService {
 
 
   async getAllLessons(data) {
-    return await Lesson.find({course_id:data}, { __v: 0 });
+    const lesson = await Lesson.find({course:data}, { __v: 0 }).populate({
+      path: "courses",
+      select: "name" });
+
+    return lesson
   }
 
   async getAllModules(data) {

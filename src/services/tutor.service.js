@@ -23,6 +23,10 @@ class TutorService {
     return await new Lesson(data).save();
   }
 
+  async moduleCreate(data) {
+    return await new Module(data).save();
+  }
+
 //for the tutor to find his own courses
   async getAllCourse(data) {
     course_id = data.tutorId

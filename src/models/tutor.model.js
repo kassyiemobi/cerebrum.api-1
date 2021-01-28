@@ -12,12 +12,12 @@ const tutorCoursesSchema = new Schema({
   },
 });
 
-tutorCoursesSchema.pre(/^find/, async function (next) {
-  await this.populate({
-    path: "course",
-    select: "name _Id img",
-  });
-});
+// tutorCoursesSchema.pre(/^find/, async function (next) {
+//   await this.populate({
+//     path: "course",
+//     select: "name _Id img",
+//   });
+// });
 
 const tutorCourses = mongoose.model("tutorCourses", tutorCoursesSchema);
 

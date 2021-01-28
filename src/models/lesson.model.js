@@ -18,15 +18,14 @@ const lessonSchema = new Schema({
     type: Object,
     conditions: [{}]
   },
-  module: {
+  module_id: {
     type: Schema.Types.ObjectId,
     required: [true, "Module ID is required "],
     ref: "module",
   },
-  course: {
+  course_id: {
     type: Schema.Types.ObjectId,
-    required: [true, "Course ID is required "],
-    ref: "course",
+    ref: "courses",
   },
 },
   {
@@ -34,6 +33,12 @@ const lessonSchema = new Schema({
   }
 );
 
+// lessonSchema.pre(/^find/, async function (next) {
+//   await this.populate({
+//     path: "course",
+//     select: "name",
+//   });
+// });
 
 
 module.exports = mongoose.model("lesson", lessonSchema)
