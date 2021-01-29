@@ -8,9 +8,9 @@ class UserContoller {
     res.status(200).send(response("User created", result));
   }
 
-  async getAll(req, res) {
-    const result = await UserServ.getAll();
-    res.status(200).send(response("All users", result));
+  async getUserCourse(req, res) {
+    const result = await UserServ.getUserCourse(req.params.courseId);
+    res.status(200).send(response("All User Courses", result));
   }
 
   async getOne(req, res) {

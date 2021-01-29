@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 
 const learnerCoursesSchema = new Schema({
-    courseId:{
+    course_id:{
         type: mongoose.Schema.ObjectId,
-        ref: "Course",
+        ref: "course",
     },
     user:{
         type:mongoose.Schema.ObjectId,
