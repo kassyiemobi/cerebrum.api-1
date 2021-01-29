@@ -4,6 +4,7 @@ const CourseCtrl = require("./../controllers/course.controller");
 
 
 router.get("/view/:courseId", CourseCtrl.getAllLessons);
+router.get("/", CourseCtrl.getAllCourses);
 // router.get("/:courseId" ,CourseCtrl.getOne);
 
 

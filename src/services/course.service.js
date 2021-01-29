@@ -7,7 +7,7 @@ const CustomError = require("./../utils/custom-error");
 class CourseService {
 
   async getAllCourses(data) {
-    const course = await Course.find({_id:data}, { __v: 0 });
+    const course = await Course.find({}, { __v: 0 });
     return course
   }
 
