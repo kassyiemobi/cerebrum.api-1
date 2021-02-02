@@ -33,7 +33,7 @@ const userSchema = new Schema(
     },
     image_url: {
       type: String,
-      default: "../../uploads/default.png",
+      default: "https://www.seekpng.com/ima/u2q8u2w7e6y3a9a9/"
     },
     image_name: {
       type: String,

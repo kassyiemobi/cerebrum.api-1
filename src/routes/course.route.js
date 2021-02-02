@@ -2,7 +2,9 @@ const router = require("express").Router();
 const CourseCtrl = require("./../controllers/course.controller");
 
 
-router.get("/:courseId", CourseCtrl.getAllLessons);
+
+router.get("/view/:courseId", CourseCtrl.getAllLessons);
+router.get("/", CourseCtrl.getAllCourses);
 // router.get("/:courseId" ,CourseCtrl.getOne);
 
 

@@ -8,16 +8,16 @@ const tutorCoursesSchema = new Schema({
   },
   tutor: {
     type: mongoose.Schema.ObjectId,
-    ref: "User",
+    ref: "user",
   },
 });
 
-tutorCoursesSchema.pre(/^find/, async function (next) {
-  await this.populate({
-    path: "course",
-    select: "name _Id img",
-  });
-});
+// tutorCoursesSchema.pre(/^find/, async function (next) {
+//   await this.populate({
+//     path: "course",
+//     select: "name _Id img",
+//   });
+// });
 
 const tutorCourses = mongoose.model("tutorCourses", tutorCoursesSchema);
 

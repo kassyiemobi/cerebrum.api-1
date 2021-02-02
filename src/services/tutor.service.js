@@ -1,11 +1,19 @@
 const CustomError = require("./../utils/custom-error");
-const Course = require ("./../models/tutor.model") 
+const Course = require ("./../models/course.model") 
 const Module= require ("./../models/module.model") 
 const Lesson = require ("./../models/lesson.model") 
+const User = require ("./../models/user.model") 
 
 class TutorService {
 
-  async create(data) {
+  async courseCreate(data, image) {
+
+    //check user
+    const user = await User.findOne({_id:data.tutor_id})
+    if(!user) throw new CustomError('this user is not a Registered',401)
+
+    if(user.role !== 'tutor') throw new CustomError("This User is not a tutor!")
+    data.image_url = image.secure_url
     return await new Course(data).save();
   }
 
@@ -19,10 +27,16 @@ class TutorService {
     return await new Lesson(data).save();
   }
 
+  async moduleCreate(data) {
+    return await new Module(data).save();
+  }
+
 //for the tutor to find his own courses
   async getAllCourse(data) {
     course_id = data.tutorId
-    return await Lesson.find({course_id});
+    return await Lesson.find({course_id:course_id}).populate({
+      ref: "course"
+    });
   }
 
 // to find one of the tutors courses

@@ -46,8 +46,14 @@ class AuthService {
     const isCorrect = await bcrypt.compare(data.password, user.password);
     if (!isCorrect) throw new CustomError("Incorrect email or password");
 
-    //check if user is verified
-    // if (!user.isVerified)  await this.RequestEmailVerification(user.email)
+    // check if user is verified
+    if (!user.isVerified)  { 
+    await this.RequestEmailVerification(user.email)
+    throw new CustomError("Email not verified, kindly check your email for verification link", 401);
+  }
+
+    console.log(user.isVerified);
+    // await this.RequestEmailVerification(user.email)
     // throw new CustomError("Email not verified, kindly check your email for verification link");
 
 

@@ -19,20 +19,32 @@ const lessonSchema = new Schema({
     conditions: [{}]
   },
   module_id: {
-    type: String,
-    // type: Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     required: [true, "Module ID is required "],
     ref: "module",
-    default: "12345"
   },
   course_id: {
-    type: String,
-    // type: Schema.Types.ObjectId,
-    required: [true, "Course ID is required "],
+    type: Schema.Types.ObjectId,
     ref: "course",
-    default: "12345"
+
+
+    
+  },
+},
+  {
+    timestamps: true,
   }
-});
+);
+
+lessonSchema.pre(/^find/, async function (next) {
+ if(! this.populate({ 
+   path: "course_id", 
+   select: "name decription price category image_url tutor_id" }
+   ).populate({
+    path: "module_id",
+    select: "name"
+  })); return next()
+})
 
 
 module.exports = mongoose.model("lesson", lessonSchema)
