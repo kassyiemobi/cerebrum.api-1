@@ -18,7 +18,7 @@ const courseSchema = new Schema({
       ref: "user",
       required: [true, "Tutor Id is required"]
     },
-  
+   
 
   price: {
     type: Number,

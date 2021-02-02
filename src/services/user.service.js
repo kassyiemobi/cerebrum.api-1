@@ -1,5 +1,5 @@
 const User = require("./../models/user.model");
-const LearnersCourse = require("./../models/learnerCourse.model");
+const LearnersCourse = require("./../models/learnersCourses.model");
 const CustomError = require("./../utils/custom-error");
 
 class UserService {

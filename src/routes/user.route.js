@@ -6,13 +6,13 @@ const { role } = require("./../config")
 
 
 router.get("/:userId", auth(role.LEARNER), UserCtrl.getOne);
-router.get("/courses/", auth(role.LEARNER), UserCtrl.getUserCourse);
+// router.get("/courses/", auth(role.LEARNER), UserCtrl.getUserCourse);
 
 //unused route
-router.post("/", auth(role.ADMIN),  UserCtrl.create);
-router.get("/", auth(role.ADMIN), UserCtrl.getAll);
-router.delete("/:userId", auth(role.ADMIN), UserCtrl.delete);
-router.delete("/delete/all", auth(role.ADMIN), UserCtrl.deleteAll);
+// router.post("/", auth(role.ADMIN),  UserCtrl.create);
+// router.get("/", auth(role.ADMIN), UserCtrl.getAll);
+// router.delete("/:userId", auth(role.ADMIN), UserCtrl.delete);
+// router.delete("/delete/all", auth(role.ADMIN), UserCtrl.deleteAll);
 
 
 module.exports = router 

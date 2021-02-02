@@ -8,7 +8,7 @@ class CourseService {
 
   async getAllCourses(data) {
     const course = await Course.find({}, { __v: 0 });
-    return course
+    return course.tutor_id
   }
 
 
