@@ -16,6 +16,7 @@ const courseSchema = new Schema({
   tutor_id: {
       type: Schema.Types.ObjectId,
       ref: "user",
+      conditions: [{}],
       required: [true, "Tutor Id is required"]
     },
    
