@@ -1,5 +1,9 @@
 const PaymentServ = require("./../services/payment.service");
- 
+const request = require('request');
+const bodyParser = require('body-parser');
+const pug = require('pug');
+const _ = require('lodash');
+const path = require('path');
 const response = require("./../utils/response");
 
 class PaymentContoller {

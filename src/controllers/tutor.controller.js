@@ -21,8 +21,8 @@ class TutorContoller {
 
     //upload lesson video to cloudinary
     const file = req.files[0].path
-    const upload = await cloudUpload(file)
-    console.log(upload);
+    const upload = await cloudUpload(file) 
+    // console.log(upload);
     
     const result = await TutorServ.lessonCreate(req.body, upload);
     res.status(201).send(response("Lesson successfully created", result));

@@ -13,6 +13,6 @@ module.exports = (app) => {
      app.use(express.static("/public"));
      app.use(express.urlencoded({ extended: false }));
      app.use('/uploads', express.static("/uploads"));
-     // app.use(formidableMiddleware());
+    
      return app
 }
