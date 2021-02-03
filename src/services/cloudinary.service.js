@@ -8,16 +8,13 @@ cloudinary.config({
     api_secret: cloud.API_SECRET,
 });
 
-  
 
-  exports.cloudUpload = async (file) => {
-    const response = await cloudinary.v2.uploader.upload(file, {
-      resource_type: 'auto',
-      folder: 'cerebrum/lessons',
-    });
-    return response;
-  };
-   
-// const cloudUpload = multer ({ storage: storage }); 
-
+exports.cloudUpload = async (file) => {
+  const response = await cloudinary.v2.uploader.upload(file, {
+    resource_type: 'auto',
+    folder: 'cerebrum/lessons',
+  });
+  return response;
+};
+ 
 

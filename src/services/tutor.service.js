@@ -33,10 +33,8 @@ class TutorService {
 
 //for the tutor to find his own courses
   async getAllCourse(data) {
-    course_id = data.tutorId
-    return await Lesson.find({course_id:course_id}).populate({
-      ref: "course"
-    });
+    const tutor_id = data
+    return await Course.find({tutor_id:tutor_id})
   }
 
 // to find one of the tutors courses

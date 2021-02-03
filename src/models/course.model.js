@@ -20,9 +20,9 @@ const courseSchema = new Schema({
   tutor_id: {
       type: Schema.Types.ObjectId,
       ref: "user",
-      required: [true, "Tutor Id is required"]
+      required: [true, "Tutor Id is required"],
     },
-  
+   
 
   price: {
     type: Number,

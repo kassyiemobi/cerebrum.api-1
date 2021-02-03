@@ -15,6 +15,10 @@ class CourseContoller{
 
   async getAllCourses(req, res) {
     const result = await CourseServ.getAllCourses();
+    const game = result.map(lesson => {
+      console.log(lesson)
+    })
+console.log(result.price);
     res.status(200).send(response("All the Modules for this course", result));
   }
 
