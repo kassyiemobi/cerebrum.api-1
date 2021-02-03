@@ -29,7 +29,7 @@ class TutorService {
 
 //for the tutor to find his own courses
   async getAllCourse(data) {
-    tutor_id = data.tutorId
+    const tutor_id = data
     return await Course.find({tutor_id:tutor_id})
   }
 

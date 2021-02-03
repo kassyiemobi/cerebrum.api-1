@@ -30,6 +30,7 @@ class TutorContoller {
   }
 
   async getAllCourse(req, res) {
+    console.log(req.params.tutorId)
     const result = await TutorServ.getAllCourse(req.params.tutorId);
     res.status(200).send(response("All tutor courses", result));
   }
