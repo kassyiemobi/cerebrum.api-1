@@ -64,6 +64,9 @@ const userSchema = new Schema(
   }
 );
 
+userSchema.index({ firstName: 'text', lastName: 'text' });
+
+
 userSchema.pre("save", async function (next) {
   if (!this.isModified('password')) return next()
 
