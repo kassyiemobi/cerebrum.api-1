@@ -21,7 +21,7 @@ learnerCoursesSchema.pre(/^find/, async function (next) {
   });
 });
 
-const learnerCourses = mongoose.model("Learnercourses", learnerCoursesSchema);
+const learnerCourses = mongoose.model("Learnercourse", learnerCoursesSchema);
 
 module.exports = learnerCourses;
 

@@ -4,7 +4,6 @@ const auth = require('./../middlewares/auth.middleware');
 const upload = require("./../middlewares/multer.middleware")
 const { role } = require("./../config")
 
-
 router.get("/:userId", auth(role.LEARNER), UserCtrl.getOne);
 // router.get("/courses/", auth(role.LEARNER), UserCtrl.getUserCourse);
 

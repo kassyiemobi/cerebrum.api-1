@@ -26,6 +26,15 @@ class MailService {
       }
     });
 
+    var cid_value = Date.now() + ".image.jpg";
+    var html = 'Embedded image: <img src="cid:' + cid_value + '" />';
+    var attachments = [
+      {
+        filename: "image.png",
+        contents: IMAGE_CONTENTS,
+        cid: cid_value,
+      },
+    ];
     const result = await transporter.sendMail({
       from,
       to: Array.isArray(recipient) ? recipient.join() : recipient,
@@ -40,15 +49,35 @@ class MailService {
 
   async sendEmailVerificationMail(link) {
     const subject = "Email Verification";
-    const content = `Hey ${this.user.firstName}, Please click on the link to verify your email ${link}`
+    const content = `Dear ${this.user.firstName}, 
+
+    Thank you for Creating a Cerebrum account
+  
+    To finish setting up this account, we just need to make sure this email address is yours.
+
+    Please click on the link to verify your email: ${link} 
+    
+    
+    
+    Thanks,
+    The Cerebrum Team.`
     const recipient = this.user.email
+
 
     return await this.send(subject, content, recipient)
   }
 
   async sendPasswordResetMail(link) {
     const subject = "Reset password";
-    const content = `Hey ${this.user.firstName}, Please click on the link to reset your password ${link}`
+    const content = `Dear${this.user.firstName}, 
+    
+    
+ Someone, hopefully you, has requested assistance in resetting their password. To do so, you will need to click on the following link and follow the instructions given to you.
+    
+Please click on the link to reset your password:${link}
+
+If you received a password-assistance email you didn't request, it's possible that someone else entered your email by mistake. If you didn't initiate the request, don't worry - your account is still secure, and you don't need to take any further action.
+`;
     const recipient = this.user.email
 
     return await this.send(subject, content, recipient)

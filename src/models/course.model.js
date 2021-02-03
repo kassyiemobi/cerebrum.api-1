@@ -12,6 +12,10 @@ const courseSchema = new Schema({
     type: String,
     required: [true, "course image must be included"],
   },
+  image_cover :{
+    type: String,
+    required: [true, "course image must be included"]
+  },
 
   tutor_id: {
       type: Schema.Types.ObjectId,
@@ -39,7 +43,10 @@ const courseSchema = new Schema({
     enum: [true, false],
     default: true,
   },
+  
 });
+
+courseSchema.index({ name: "text" });
 
 courseSchema.pre(/^find/, async function (next) {
   if(! this.populate({ 
