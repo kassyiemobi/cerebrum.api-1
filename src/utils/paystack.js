@@ -31,6 +31,6 @@ const paystack = (request) => {
         }
         request(option,callback);
     }
-    return {initializePayment, verifyPayment, initializeSubscriptionPayment};
+    return {initializePayment, verifyPayment};
 }
 module.exports = paystack

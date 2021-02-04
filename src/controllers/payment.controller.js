@@ -1,5 +1,7 @@
 const PaymentServ = require("./../services/payment.service");
 const Payment = require('./../models/payment.model')
+const CustomError = require("./../utils/custom-error");
+
 
 const _ = require('lodash');
 const request = require('request');
@@ -10,29 +12,34 @@ const responses = require("./../utils/response");
 class PaymentContoller {
 
   async create(req, res) {
-    const form = _.pick(req.body,[`amount`,`email`,`full_name`]);
+    const form = _.pick(req.body,[`amount`,`course_id`,`paymentType`,`email`,`firstName`,`lastName`,`userId`]);
     console.log(form)
 
+    // pass Custom data to Paystack
     form.metadata = {
-      full_name : form.full_name
+      firstName : form.firstName,
+      lastName : form.lastName,
+      course_id : form.course_id,
+      paymentType: form.paymentType
     }
     form.amount *= 100;
     initializePayment(form, (error, body)=>{
-        if(error){
-            //handle errors
-            console.log(error);
-            return;
+      if(error){
+          //handle error
+          console.log(error);
+          res.status(403).send(responses("Error ecountered! Can't pay now!", error));
       }
+
       let response = JSON.parse(body);
       res.redirect(response.data.authorization_url)
     });
 
   } 
 
+  //Test controller to render HTML for Payment test
   async getAll(req, res) {
     res.render(`index.pug`)
-    // const result = await PaymentServ.getAll();
-    // res.status(200).send(response("All payment", result));
+  
   }
 
   async callback(req, res) {
@@ -40,37 +47,36 @@ class PaymentContoller {
       const ref = req.query.reference;
       verifyPayment(ref, (error,body)=>{
           if(error){
-
               //handle errors appropriately
-              // console.log(error)
+              console.log(error)
+              // res.status(403).send(responses("Error ecountered! Payment Verification Failed!", error));
               return res.redirect('/error');
           }
           let response = JSON.parse(body);
-          console.log(response.data)
-          const data = _.at(response.data, ['reference','amount','customer.email', 'metadata.full_name']);
-          const [reference, amount, email, full_name] = data;
-          const newDonor = {reference, amount, email, full_name}
-          const donor = new Payment(newDonor)
-          donor.save().then((donor)=>{
-              if(donor){
-                  res.redirect('/receipt/'+donor._id);
-              }
-          }).catch((e)=>{
-              res.redirect('/error');
-          })
+          console.log(response.data.reference)
+          
+          const data = _.at(response.data, ['reference','amount','customer.email', 'metadata.firstName','metadata.lastName','metadata.course_id','metadata.paymentType']);
+          const [reference, amount, email, firstName, lastName, course_id, paymentType] = data;
+          console.log( data)
+          const pay = await new Payment(data).save()
+          if(pay){
+              res.redirect('payment/success/'+pay._id);
+  
+          }else{
+            res.redirect('payment/failed');
+          }
+          
       })
   
   }
 
-  async update(req, res) {
-    const result = await PaymentServ.update(req.params.paymentId, req.body);
-    res.status(200).send(responses("payment updated", result));
+  async addPaymentType(req, res) {
+    const data = _.pick(req.body,['name'])
+    const result = await PaymentServ.addPaymentType(data);
+    res.status(200).send(responses("Payment Type added successfully", result));
   }
   
-  async delete(req, res) {
-    const result = await PaymentServ.delete(req.params.paymentId);
-    res.status(200).send(responses("payment deleted", result));
-  }
+  
 
 }
 

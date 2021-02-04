@@ -10,9 +10,18 @@ block content
                         | can Save a life.
                 .container.pt-3
                     form(name='myForm', action='/api/payment/new', method='POST')
-                        input#name(type='text', name='full_name', placeholder='Full Nname')
+                        input#firstname(type='text', name='firstName', placeholder='firstName')
+                        hr
+                        input#lwastName(type='text', name='lastName', placeholder='firstName')
                         hr
                         input#email(type='email', name='email', placeholder='Email')
+                        hr
+                        input#course_id(type='course_id', name='course_id', placeholder='course')
+                        hr
+                        input#paymentType(type='paymentType', name='paymentType', placeholder='Email')
+                        hr
+                        input#user_id(type='user_id', name='user_id', placeholder='user_id')
+
                         hr
                         select(name='amount')
                             option Select Amount

@@ -15,9 +15,12 @@ class CourseContoller{
 
   async getAllCourses(req, res) {
     const result = await CourseServ.getAllCourses();
-    
-console.log(result.price);
     res.status(200).send(response("All the Modules for this course", result));
+  }
+
+  async getOneCourse(req, res) {
+    const result = await CourseServ.getOneCourse(req.params.course_id);
+    res.status(200).send(response("Details of one Course", result));
   }
 
 }
