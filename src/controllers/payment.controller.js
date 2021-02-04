@@ -56,9 +56,10 @@ class PaymentContoller {
           console.log(response.data.reference)
           
           const data = _.at(response.data, ['reference','amount','customer.email', 'metadata.firstName','metadata.lastName','metadata.course_id','metadata.paymentType']);
-          const [reference, amount, email, firstName, lastName, course_id, paymentType] = data;
+          const {reference, amount, email, firstName, lastName, course_id, paymentType} = data;
           console.log( data)
-          const pay = new Payment(data).save().then((donor)=>{
+          const pay = new Payment(data)
+          pay.save().then((pay)=>{
             if(!pay){
               res.redirect('payment/failed');
             }

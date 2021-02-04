@@ -11,6 +11,7 @@ class CourseService {
     return course
   }
   async getOneCourse(data) {
+    console.log(data)
     const course = await Course.find({_id:data}, { __v: 0 });
     return course
   }

@@ -4,7 +4,7 @@ const response = require("./../utils/response");
 class CourseContoller{
   
   async getAllLessons(req, res) {
-    const result = await CourseServ.getAllLessons(req.params.courseId);
+    const result = await CourseServ.getAllLessons(req.params.course_id);
     res.status(200).send(response("All the Lessons for this course", result));
   }
 
