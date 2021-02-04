@@ -1,22 +1,26 @@
-
-const courseModel= require("../models/course.model");
+const _ = require ("lodash")
+const Course= require("../models/course.model");
 const user = require("../models/user.model");
+const CustomError = require("./../utils/custom-error");
+
 
 exports.search = async (req, res) => {
-  const query = new RegExp(req.query.q, "gi");
+  const Query = req.query.q.trim();
+  const query = new RegExp(Query, "gi");
 
-  const courses= await courseModel.find({ $text: { $search: query } }).select([
-    "_id",
-    "title",
-  ]);
+  const courses= await Course
+  .find({ name: query }).select(["_id","name", ]);
 
   const users = await user.find({ $text: { $search: query } }).select([
     "_id",
     "firstName",
     "lastName",
-  ]);
-
-  const results = {
+    ]);
+   
+    if (_.isEmpty (users) && _.isEmpty(courses)) throw new CustomError("Does not exist")
+    
+ 
+   const results = {
     courses,
     users,
   };
