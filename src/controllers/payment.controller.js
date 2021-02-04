@@ -1,6 +1,5 @@
 const PaymentServ = require("./../services/payment.service");
 const Payment = require('./../models/payment.model')
-const CustomError = require("./../utils/custom-error");
 
 
 const _ = require('lodash');
@@ -12,14 +11,15 @@ const responses = require("./../utils/response");
 class PaymentContoller {
 
   async create(req, res) {
-    const form = _.pick(req.body,[`amount`,`course_id`,`paymentType`,`email`,`firstName`,`lastName`,`userId`]);
+    const form = _.pick(req.body,[`amount`,`course_id`,`paymentType`,`email`,`firstName`,`lastName`,`user_id`]);
     console.log(form)
 
     // pass Custom data to Paystack
     form.metadata = {
       firstName : form.firstName,
       lastName : form.lastName,
-      course_id : form.course_id,
+      user_id: form.user_id.trim(),
+      course_id : form.course_id.trim(),
       paymentType: form.paymentType
     }
     form.amount *= 100;
@@ -31,6 +31,7 @@ class PaymentContoller {
       }
 
       let response = JSON.parse(body);
+      console.log(form)
       res.redirect(response.data.authorization_url)
     });
 
@@ -42,8 +43,9 @@ class PaymentContoller {
   
   }
 
+
+
   async callback(req, res) {
-    
       const ref = req.query.reference;
       verifyPayment(ref, (error,body)=>{
           if(error){
@@ -53,18 +55,15 @@ class PaymentContoller {
               return res.redirect('/error');
           }
           let response = JSON.parse(body);
-          console.log(response.data.reference)
-          
-          const data = _.at(response.data, ['reference','amount','customer.email', 'metadata.firstName','metadata.lastName','metadata.course_id','metadata.paymentType']);
-          const {reference, amount, email, firstName, lastName, course_id, paymentType} = data;
-          console.log( data)
-          const pay = new Payment(data)
+          console.log(response);
+          // const transaction = new Transaction(response)
+          const data = _.at(response.data, ['reference','amount','customer.email','metadata.user_id', 'metadata.firstName','metadata.lastName','metadata.course_id','metadata.paymentType']);
+          const [reference, amount, email, user_id, firstName, lastName, course_id, paymentType] = data;
+          const newPay = {reference, amount, email, user_id, course_id, paymentType}
+          const pay = new Payment(newPay)
+          console.log(newPay);
           pay.save().then((pay)=>{
-            if(!pay){
-              res.redirect('payment/failed');
-            }
             res.redirect('payment/success/'+pay._id);
-
             }).catch((e)=>{
               res.redirect('payment/failed');
            });

@@ -14,10 +14,9 @@ const paymentSchema = new Schema({
     ref: "course"
     },
 
-    paymentType_id: {
-    type: Schema.Types.ObjectId,
-    required: [true, "Payment Type ID is required "],
-    ref: "paymentType"
+    paymentType: {
+    type: String,
+    required: [true, "Payment Type  is required "]
     },
     
     email: {
@@ -30,8 +29,12 @@ const paymentSchema = new Schema({
     },
     reference: {
         type: String,
-        required: true
-    }
+        // required: true
+    },
+    status: {
+        type: Boolean,
+        default: true,
+      }
 })
 
 
