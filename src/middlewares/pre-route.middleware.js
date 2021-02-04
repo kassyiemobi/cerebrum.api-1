@@ -2,7 +2,12 @@ const express = require('express');
 const helmet = require("helmet");
 const morgan = require('morgan');
 const cors = require("cors")
-// const formidableMiddleware = require('express-formidable');
+const bodyParser = require("body-parser")
+const request = require('request');
+const pug = require('pug');
+const _ = require('lodash');
+const path = require('path');
+
 
 
 module.exports = (app) => {
@@ -13,6 +18,8 @@ module.exports = (app) => {
      app.use(express.static("/public"));
      app.use(express.urlencoded({ extended: false }));
      app.use('/uploads', express.static("/uploads"));
-    
+     app.use(express.static(path.join(__dirname, 'public/')));
+     app.set('view engine', pug);
+     
      return app
 }
