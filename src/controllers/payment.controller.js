@@ -58,14 +58,15 @@ class PaymentContoller {
           const data = _.at(response.data, ['reference','amount','customer.email', 'metadata.firstName','metadata.lastName','metadata.course_id','metadata.paymentType']);
           const [reference, amount, email, firstName, lastName, course_id, paymentType] = data;
           console.log( data)
-          const pay = await new Payment(data).save()
-          if(pay){
-              res.redirect('payment/success/'+pay._id);
-  
-          }else{
-            res.redirect('payment/failed');
-          }
-          
+          const pay = new Payment(data).save().then((donor)=>{
+            if(!pay){
+              res.redirect('payment/failed');
+            }
+            res.redirect('payment/success/'+pay._id);
+
+            }).catch((e)=>{
+              res.redirect('payment/failed');
+           });
       })
   
   }
