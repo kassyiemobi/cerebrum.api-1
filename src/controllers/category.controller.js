@@ -16,7 +16,7 @@ class categoryContoller {
 
   async getCourseCategory(req, res) {
     const result = await categoryServ.getCourseCategory(req.categoryName);
-    res.status(200).send(response("All category categorys", result));
+    res.status(200).send(response("All category categorys", result)); 
   }
 
 }
