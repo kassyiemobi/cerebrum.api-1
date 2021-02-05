@@ -13,7 +13,15 @@ class CategoryService {
 
 //for the Category to find his own courses
   async getAll() {
-    return await Category.find({});
+    const result = await Category.find({});
+    if(!result) throw new CustomError("No course in the database!", 403)
+    return result
+  }
+
+  async getCourseCategory(data) {
+    const result = await Category.find({category:data});
+    if(!result) throw new CustomError("No course in this Category", 403)
+    return result
   }
 }
 

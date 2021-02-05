@@ -5,6 +5,7 @@ const { role } = require("./../config");
 //get all the categories
 router.post("/", auth(role.ADMIN), CategoryCtrl.create); 
 router.get("/", CategoryCtrl.getAll); 
+router.get("/course/:categoryName", CategoryCtrl.getCategoryName); 
 
 
 
