@@ -19,7 +19,7 @@ class TutorService {
     return await new Course(data).save();
   }
 
-  async moduleCreate(course_id,data){
+  async moduleCreate(course_id, data){
     return await new Module(course_id, data).save();
   }
 

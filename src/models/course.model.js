@@ -51,7 +51,7 @@ const courseSchema = new Schema({
   
 });
 
-// courseSchema.index({ name: "text" });
+courseSchema.index({ name: "text", category: 'text', description: 'text' });
 
 courseSchema.pre(/^find/, async function (next) {
   if(! this.populate({ 

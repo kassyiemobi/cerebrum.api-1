@@ -9,7 +9,7 @@ exports.search = async (req, res) => {
   const query = new RegExp(Query, "gi");
 
   const courses= await Course
-  .find({ name: query }).select(["_id","name", ]);
+  .find({ name: query }).select(["_id","name","category","description" ]);
 
   const users = await user.find({ $text: { $search: query } }).select([
     "_id",
