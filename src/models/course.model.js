@@ -23,10 +23,15 @@ const courseSchema = new Schema({
       required: [true, "Tutor Id is required"],
     },
    
-
   price: {
-    type: Number,
-    required: [true, "A course must have a price"],
+    lifeTime : {
+      type: Number,
+      required: [true, "A course must have a lifetime price"],
+    },
+    subscription : {
+      type: Number,
+      required: [true, "Course subscription Price is required"],
+    }
   },
  
   category: {

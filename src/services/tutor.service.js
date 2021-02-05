@@ -14,6 +14,8 @@ class TutorService {
 
     if(user.role !== 'tutor') throw new CustomError("This User is not a tutor!")
     data.image_url = image.secure_url
+    data.price.lifeTime = data.price
+    data.price.subscription = (parseInt(data.price)/0.02)
     return await new Course(data).save();
   }
 

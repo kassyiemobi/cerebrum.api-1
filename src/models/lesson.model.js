@@ -26,9 +26,6 @@ const lessonSchema = new Schema({
   course_id: {
     type: Schema.Types.ObjectId,
     ref: "course",
-
-
-    
   },
 },
   {

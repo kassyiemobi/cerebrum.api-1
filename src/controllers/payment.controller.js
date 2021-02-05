@@ -61,6 +61,8 @@ class PaymentContoller {
           const [reference, amount, email, user_id, firstName, lastName, course_id, paymentType] = data;
           const newPay = {reference, amount, email, user_id, course_id, paymentType}
           const pay = new Payment(newPay)
+
+          
           console.log(newPay);
           pay.save().then((pay)=>{
             res.redirect('payment/success/'+pay._id);
