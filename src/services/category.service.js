@@ -1,5 +1,6 @@
 const CustomError = require("./../utils/custom-error");
 const Category = require ("./../models/category.model") 
+const Course = require ("./../models/course.model") 
 
 class CategoryService {
   async create(data) {
@@ -19,7 +20,9 @@ class CategoryService {
   }
 
   async getCourseCategory(data) {
-    const result = await Category.find({category:data});
+    console.log(data);  
+    const result   = await Course.find({category:data});
+    console.log(result);
     if(!result) throw new CustomError("No course in this Category", 403)
     return result
   }
