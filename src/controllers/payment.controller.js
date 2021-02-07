@@ -1,12 +1,15 @@
 const PaymentServ = require("./../services/payment.service");
 const Payment = require('./../models/payment.model')
-
-
+const Transaction = require('./../models/transaction.model')
+const CronJob = require('cron').CronJob;
 const _ = require('lodash');
 const request = require('request');
 const {initializePayment, verifyPayment} = require('./../utils/paystack')(request);
-
 const responses = require("./../utils/response");
+const job = new CronJob('* * * * * *', function() {
+  // console.log('You will see this message every second');
+}, null, true, 'America/Los_Angeles');
+job.start();
 
 class PaymentContoller {
 
@@ -58,17 +61,37 @@ class PaymentContoller {
           console.log(response);
           // const transaction = new Transaction(response)
           const data = _.at(response.data, ['reference','amount','customer.email','metadata.user_id', 'metadata.firstName','metadata.lastName','metadata.course_id','metadata.paymentType']);
-          const [reference, amount, email, user_id, firstName, lastName, course_id, paymentType] = data;
+          let [reference, amount, email, user_id, firstName, lastName, course_id, paymentType] = data;
+          
+          //change amount to Naira Value
+          amount =  (amount/100)
+          console.log(amount)
+
+          //extract values to be saved to DB
           const newPay = {reference, amount, email, user_id, course_id, paymentType}
+          const newTransaction = {reference, userid, courseid, response}
+
+          const transaction = new Transaction(newTransaction)
           const pay = new Payment(newPay)
 
-          
-          console.log(newPay);
+          //save to Database
           pay.save().then((pay)=>{
+            transaction.save().then((pay) =>{
+              if(paymentType == 'one-time'){
+                let payment_id = pay._id
+                let count = 30
+                const newSubscription =  {payment_id, count}
+                subscription.save()
+              }
+              console.log('transaction Saved!');
+            }).catch((e)=> {
+              console.log(e.response);
+            })
             res.redirect('payment/success/'+pay._id);
             }).catch((e)=>{
+              console.log(e.response);
               res.redirect('payment/failed');
-           });
+          });
       })
   
   }

@@ -9,7 +9,4 @@ router.get("/course/:categoryName", CategoryCtrl.getCourseCategory); // return c
 
 
 
-
-
-
 module.exports = router
