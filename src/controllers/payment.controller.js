@@ -19,13 +19,14 @@ let now = new Date();
 let nextMonth = addDays(now, 30).toJSON().slice(0,10)
 // console.log(nextMonth);
 
-const job = new CronJob('1 * * * * *',async function() {
+const job = new CronJob('59 59 23 * * *',async function() {
  
-  let subscriptions = await Payment.updateMany({sub_date: new Date().toJSON().slice(0,10)}, {
-    isActive: false
+  let subscriptions = await Payment.updateMany({exp_date: new Date().toJSON().slice(0,10)}, {
+    status: false
   })
   
   console.log('Subscription payment Update!')
+  console.log(new Date().toJSON().slice(0,10))
   
   
 }, null, true, 'America/Los_Angeles');
