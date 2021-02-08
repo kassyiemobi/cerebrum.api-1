@@ -31,9 +31,19 @@ const paymentSchema = new Schema({
         type: String,
         // required: true
     },
+    sub_date: {
+        type: String,
+        required: [true, "Subscription date is required"]
+      },
+
+    exp_date: {
+    type: String,
+    required: [true, "expiry Date is required"]
+    
+    },
     status: {
         type: Boolean,
-        default: true,
+        required : [true, "payment status is required"]
     }
 },
     {

@@ -22,7 +22,6 @@ class CategoryService {
   async getCourseCategory(data) {
     console.log(data);  
     const result   = await Course.find({category:data});
-    console.log(result);
     if(!result) throw new CustomError("No course in this Category", 403)
     return result
   }

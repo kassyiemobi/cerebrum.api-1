@@ -1,16 +1,35 @@
 const PaymentServ = require("./../services/payment.service");
 const Payment = require('./../models/payment.model')
+const Subscription = require('./../models/subscription.model')
 const Transaction = require('./../models/transaction.model')
 const CronJob = require('cron').CronJob;
 const _ = require('lodash');
 const request = require('request');
 const {initializePayment, verifyPayment} = require('./../utils/paystack')(request);
 const responses = require("./../utils/response");
-const job = new CronJob('* * * * * *', function() {
-  // console.log('You will see this message every second');
+
+//Add days to current date
+function addDays(dateObj, numDays) {
+  dateObj.setDate(dateObj.getDate() + numDays);
+  return dateObj;
+}
+
+//Setting Date Values
+let now = new Date();
+let nextMonth = addDays(now, 30).toJSON().slice(0,10)
+// console.log(nextMonth);
+
+const job = new CronJob('01 01 22 * * *',async function() {
+ 
+  let subscriptions = await Payment.updateMany({sub_date: new Date().toJSON().slice(0,10)}, {
+    isActive: false
+  })
+  
+  console.log('Subscription payment Update!')
+  
+  
 }, null, true, 'America/Los_Angeles');
 job.start();
-
 class PaymentContoller {
 
   async create(req, res) {
@@ -21,8 +40,8 @@ class PaymentContoller {
     form.metadata = {
       firstName : form.firstName,
       lastName : form.lastName,
-      user_id: form.user_id.trim(),
-      course_id : form.course_id.trim(),
+      user_id: form.user_id,
+      course_id : form.course_id,
       paymentType: form.paymentType
     }
     form.amount *= 100;
@@ -30,14 +49,15 @@ class PaymentContoller {
       if(error){
           //handle error
           console.log(error);
-          res.status(403).send(responses("Error ecountered! Can't pay now!", error));
+          // res.status(403).send(responses("Error ecountered! Can't pay now!", error));
+          res.redirect('api/payment/error?msg=network')
+
       }
 
       let response = JSON.parse(body);
       console.log(form)
       res.redirect(response.data.authorization_url)
     });
-
   } 
 
   //Test controller to render HTML for Payment test
@@ -50,7 +70,7 @@ class PaymentContoller {
 
   async callback(req, res) {
       const ref = req.query.reference;
-      verifyPayment(ref, (error,body)=>{
+      verifyPayment(ref, async(error,body)=>{
           if(error){
               //handle errors appropriately
               console.log(error)
@@ -68,30 +88,51 @@ class PaymentContoller {
           console.log(amount)
 
           //extract values to be saved to DB
-          const newPay = {reference, amount, email, user_id, course_id, paymentType}
-          const newTransaction = {reference, userid, courseid, response}
-
+          const status = true
+          
+          const newPay = {reference, amount, email, user_id, course_id, paymentType, status}
+          const newTransaction = {reference, user_id, course_id, response}
+         
           const transaction = new Transaction(newTransaction)
           const pay = new Payment(newPay)
 
           //save to Database
-          pay.save().then((pay)=>{
-            transaction.save().then((pay) =>{
-              if(paymentType == 'one-time'){
-                let payment_id = pay._id
-                let count = 30
-                const newSubscription =  {payment_id, count}
-                subscription.save()
-              }
-              console.log('transaction Saved!');
-            }).catch((e)=> {
-              console.log(e.response);
+          if(paymentType == 'subscription'){
+            newPay.sub_date = new Date().toJSON().slice(0,10)
+            newPay.exp_date = nextMonth
+            pay.save()
+            .then(()=>{
+              console.log('Payment saved!');
+              transaction.save()
+                .then((pay)=> {
+                  res.redirect('payment/success/'+pay._id);
+                })
+                .catch((e)=>{
+                  console.log(e);
+                })
             })
-            res.redirect('payment/success/'+pay._id);
-            }).catch((e)=>{
+            .catch((e)=>{
               console.log(e.response);
               res.redirect('payment/failed');
-          });
+            });
+          }else{
+            pay.save()
+            .then(()=>{
+              console.log('Payment saved!');
+              transaction.save()
+                .then((pay)=> {
+                  res.redirect('payment/success/'+pay._id);
+                })
+                .catch((e)=>{
+                  console.log(e);
+                })
+            })
+            .catch((e)=>{
+              console.log(e.response);
+              res.redirect('payment/failed');
+            });
+
+          }
       })
   
   }
