@@ -19,7 +19,7 @@ let now = new Date();
 let nextMonth = addDays(now, 30).toJSON().slice(0,10)
 // console.log(nextMonth);
 
-const job = new CronJob('01 01 22 * * *',async function() {
+const job = new CronJob('1 * * * * *',async function() {
  
   let subscriptions = await Payment.updateMany({sub_date: new Date().toJSON().slice(0,10)}, {
     isActive: false
@@ -70,7 +70,7 @@ class PaymentContoller {
 
   async callback(req, res) {
       const ref = req.query.reference;
-      verifyPayment(ref, async(error,body)=>{
+      verifyPayment(ref, (error,body)=>{
           if(error){
               //handle errors appropriately
               console.log(error)
@@ -93,13 +93,14 @@ class PaymentContoller {
           const newPay = {reference, amount, email, user_id, course_id, paymentType, status}
           const newTransaction = {reference, user_id, course_id, response}
          
-          const transaction = new Transaction(newTransaction)
-          const pay = new Payment(newPay)
+          
 
           //save to Database
           if(paymentType == 'subscription'){
             newPay.sub_date = new Date().toJSON().slice(0,10)
             newPay.exp_date = nextMonth
+            let transaction = new Transaction(newTransaction)
+            let pay = new Payment(newPay)
             pay.save()
             .then(()=>{
               console.log('Payment saved!');
@@ -116,6 +117,10 @@ class PaymentContoller {
               res.redirect('payment/failed');
             });
           }else{
+            newPay.sub_date = 0
+            newPay.exp_date = 0
+            let transaction = new Transaction(newTransaction)
+            let pay = new Payment(newPay)
             pay.save()
             .then(()=>{
               console.log('Payment saved!');
