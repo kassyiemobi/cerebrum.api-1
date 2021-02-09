@@ -106,10 +106,11 @@ class PaymentContoller {
             let transaction = new Transaction(newTransaction)
             let pay = new Payment(newPay)
             pay.save()
-            .then(()=>{
+            .then((pay)=>{
+              const pay_id = pay._id
               console.log('Payment saved!');
               transaction.save()
-                .then((pay)=> {
+                .then((trans)=> {
                   res.redirect('http://localhost:3000/user/course/payment/success/?id='+pay._id);
                 })
                 .catch((e)=>{
