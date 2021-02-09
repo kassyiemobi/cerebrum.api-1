@@ -5,7 +5,7 @@ const { role } = require("./../config");
 
 router.post("/new", PaymentCtrl.create);
 router.post("/add-payment-type", auth(role.ADMIN), PaymentCtrl.addPaymentType);
-router.post("/confirm/", PaymentCtrl.checkPayment); // check if user paid for the course
+router.post("/confirm", PaymentCtrl.checkPayment); // check if user paid for the course
 router.get("/check/:payment_id", PaymentCtrl.checkPayment);
 router.get("/callback", PaymentCtrl.callback);
 router.get("/", PaymentCtrl.getAll);
