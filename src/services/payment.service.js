@@ -16,6 +16,15 @@ class PaymentService {
     return result
   }
 
+  async confirmPayment(data) {
+    const user_id = data.user_id;
+    const course_id = data.course_id
+    let result = await Payment.find({course_id, user_id}) 
+    if(_.isEmpty(result)) throw new CustomError('This user has never paid for this course', 403)
+    if(result.status == false) throw new CustomError('This user payment subscription for this course has expired', 403)
+    return result
+  }
+
   
 
   

@@ -155,9 +155,13 @@ class PaymentContoller {
   }
   
   async checkPayment(req, res) {
-    const data = req.params.payment_id
-    const result = await PaymentServ.checkPayment(data);
-    res.status(200).send(responses("Payment Type added successfully", result));
+    const result = await PaymentServ.checkPayment(req.params.payment_id);
+    res.status(200).send(responses("Your payment for this course was successfully", result));
+  }
+
+  async confirmPayment(req, res) {
+    const result = await PaymentServ.confirmPayment(req.body);
+    res.status(200).send(responses("You have access to this course because you've paid!", result));
   }
   
   
