@@ -110,7 +110,7 @@ class PaymentContoller {
               console.log('Payment saved!');
               transaction.save()
                 .then((pay)=> {
-                  res.redirect('/payment/success/'+pay._id);
+                  res.redirect('https://localhost:3000/user/course/payment/success/'+pay._id);
                 })
                 .catch((e)=>{
                   console.log(e);
@@ -118,7 +118,7 @@ class PaymentContoller {
             })
             .catch((e)=>{
               console.log(e.response);
-              res.redirect('/payment/failed');
+              res.redirect('https://localhost:3000/user/course/payment/fail/');
             });
           }else{
             newPay.sub_date = 0
