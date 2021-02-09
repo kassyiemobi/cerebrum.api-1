@@ -12,9 +12,9 @@ router.get("/course/:tutorId", TutorCtrl.getAllCourse)
 
 
 //unused route for now
-router.get("/:tutorId" ,TutorCtrl.getOne);
-router.put("/:tutorId" ,TutorCtrl.update);
-router.delete("/:tutorId" ,TutorCtrl.delete);
+// router.get("/:tutorId" ,TutorCtrl.getOne);
+// router.put("/:tutorId" ,TutorCtrl.update);
+// router.delete("/:tutorId" ,TutorCtrl.delete);
 
 
 module.exports = router

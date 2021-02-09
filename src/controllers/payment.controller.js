@@ -57,7 +57,10 @@ class PaymentContoller {
 
       let response = JSON.parse(body);
       console.log(form)
-      res.redirect(response.data.authorization_url)
+      const result = response.data.authorization_url
+      res.status(200).send(responses("preparing to redirect for payment", result));
+
+
     });
   } 
 
@@ -107,7 +110,7 @@ class PaymentContoller {
               console.log('Payment saved!');
               transaction.save()
                 .then((pay)=> {
-                  res.redirect('payment/success/'+pay._id);
+                  res.redirect('/payment/success/'+pay._id);
                 })
                 .catch((e)=>{
                   console.log(e);
@@ -115,7 +118,7 @@ class PaymentContoller {
             })
             .catch((e)=>{
               console.log(e.response);
-              res.redirect('payment/failed');
+              res.redirect('/payment/failed');
             });
           }else{
             newPay.sub_date = 0
