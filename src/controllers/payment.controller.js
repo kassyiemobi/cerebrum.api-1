@@ -152,6 +152,12 @@ class PaymentContoller {
     res.status(200).send(responses("Payment Type added successfully", result));
   }
   
+  async checkPayment(req, res) {
+    const data = req.params.payment_id
+    const result = await PaymentServ.checkPayment(data);
+    res.status(200).send(responses("Payment Type added successfully", result));
+  }
+  
   
 
 }
