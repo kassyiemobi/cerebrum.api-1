@@ -1,41 +1,33 @@
 const Payment = require("./../models/payment.model");
+const PaymentType = require("./../models/paymentType.model");
 const CustomError = require("./../utils/custom-error");
+const _ = require('lodash');
+
 
 class PaymentService {
 
-  async create(data) {
-    return await new Payment(data).save();
+  async addPaymentType(data) {
+    return await new PaymentType(data).save()
+  }
+  
+  async checkPayment(data) {
+    let result = await Payment.find({_id:data}) 
+    if(_.isEmpty(result)) throw new CustomError('This payment could not be found! You can not access this course', 403)
+    return result
   }
 
-  async getAll() {
-    return await Payment.find({});
+  async confirmPayment(data) {
+    const user_id = data.user_id;
+    const course_id = data.course_id
+    let result = await Payment.find({course_id, user_id}) 
+    if(_.isEmpty(result)) throw new CustomError('This user has never paid for this course', 403)
+    if(result.status == false) throw new CustomError('This user payment subscription for this course has expired', 403)
+    return result
   }
 
-  async getOne(paymentId) {
-    const payment = await Payment.findOne({ _id: paymentId });
-    if (!payment) throw new CustomError("Payment does not exists");
+  
 
-    return payment
-  }
-
-  async update(paymentId, data) {
-    const payment = await Payment.findByIdAndUpdate(
-    { _id: paymentId },
-    { $set: data },
-    { new: true }
-    );
-
-    if (!payment) throw new CustomError("Payment dosen't exist", 404);
-
-    return payment;
-  }
-
-  async delete(paymentId) {
-    const payment = await Payment.findOne({ _id: paymentId });
-    payment.remove()
-    return payment
-  }
-
+  
 }
 
 module.exports = new PaymentService();

@@ -14,6 +14,11 @@ class categoryContoller {
     res.status(200).send(response("All category categorys", result));
   }
 
+  async getCourseCategory(req, res) {
+    const result = await categoryServ.getCourseCategory(req.params.name);
+    res.status(200).send(response("All category categorys", result)); 
+  }
+
 }
 
 module.exports = new categoryContoller();

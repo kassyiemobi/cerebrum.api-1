@@ -4,7 +4,7 @@ const response = require("./../utils/response");
 class CourseContoller{
   
   async getAllLessons(req, res) {
-    const result = await CourseServ.getAllLessons(req.params.courseId);
+    const result = await CourseServ.getAllLessons(req.params.course_id);
     res.status(200).send(response("All the Lessons for this course", result));
   }
 
@@ -15,11 +15,12 @@ class CourseContoller{
 
   async getAllCourses(req, res) {
     const result = await CourseServ.getAllCourses();
-    const game = result.map(lesson => {
-      console.log(lesson)
-    })
-console.log(result.price);
     res.status(200).send(response("All the Modules for this course", result));
+  }
+
+  async getOneCourse(req, res) {
+    const result = await CourseServ.getOneCourse(req.params.course_id);
+    res.status(200).send(response("Details of one Course", result));
   }
 
 }
