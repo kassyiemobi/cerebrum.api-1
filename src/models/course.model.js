@@ -13,8 +13,7 @@ const courseSchema = new Schema({
     required: [true, "course image must be included"],
   },
   image_cover :{
-    type: String,
-    required: [true, "course image must be included"]
+    type: String
   },
 
   tutor_id: {
