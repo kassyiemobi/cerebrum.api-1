@@ -22,8 +22,7 @@ class TutorService {
     }
     data.price = newPrice
     console.log(data)
-    return data
-    // return await new Course(data).save();
+    return await new Course(data).save();
   }
 
   async moduleCreate(course_id, data){
