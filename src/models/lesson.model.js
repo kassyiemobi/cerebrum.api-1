@@ -36,7 +36,7 @@ const lessonSchema = new Schema({
 lessonSchema.pre(/^find/, async function (next) {
  if(! this.populate({ 
    path: "course_id", 
-   select: "name decription price category image_url tutor_id" }
+   select: "name description price category image_url tutor_id" }
    ).populate({
     path: "module_id",
     select: "name"
