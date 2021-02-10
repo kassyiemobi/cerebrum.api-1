@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
-const CustomError = require("./../utils/custom-error");
-const { mailer, APP_NAME } = require("./../config");
+const CustomError = require("../utils/custom-error");
+const { mailer, APP_NAME } = require("../config");
 
 class MailService {
   constructor(user) {
@@ -25,16 +25,7 @@ class MailService {
         pass: mailer.PASSWORD
       }
     });
-
-    var cid_value = Date.now() + ".image.jpg";
-    var html = 'Embedded image: <img src="cid:' + cid_value + '" />';
-    var attachments = [
-      {
-        filename: "image.png",
-        contents: IMAGE_CONTENTS,
-        cid: cid_value,
-      },
-    ];
+    
     const result = await transporter.sendMail({
       from,
       to: Array.isArray(recipient) ? recipient.join() : recipient,
