@@ -64,7 +64,7 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.index({ firstName: 'text', lastName: 'text' });
+userSchema.index({ firstName: 'text', lastName: 'text',email:'text', image_url:'text' });
 
 
 userSchema.pre("save", async function (next) {

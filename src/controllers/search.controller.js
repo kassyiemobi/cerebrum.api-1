@@ -15,7 +15,10 @@ exports.search = async (req, res) => {
     "_id",
     "firstName",
     "lastName",
-    
+    "image_url",
+    "email"
+
+
     ]);
    
     if (_.isEmpty (users) && _.isEmpty(courses)) throw new CustomError("Does not exist")
