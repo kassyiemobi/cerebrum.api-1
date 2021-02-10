@@ -11,6 +11,6 @@ router.post("/request-email-verification", AuthCtrl.RequestEmailVerification);
 router.post("/verify-email", AuthCtrl.VerifyEmail);
 router.post("/request-password-reset", AuthCtrl.RequestPasswordReset);
 router.post("/reset-password", AuthCtrl.resetPassword);
-router.patch("/update-profile", auth(role.LEARNER), upload.single("user_image"), AuthCtrl.updateProfile);
+router.patch("/update-profile/:user_id", auth(role.LEARNER), upload.single("user_image"), AuthCtrl.updateProfile);
 
 module.exports = router;

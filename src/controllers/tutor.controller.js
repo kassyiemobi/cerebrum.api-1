@@ -5,9 +5,12 @@ const response = require("./../utils/response");
 
 class TutorContoller {
   async courseCreate(req, res) {
+    // console.log(req)
     //upload coure Image to cloudinary
     const courseImage = req.files[0].path
+    console.log(courseImage)
     const upload = await cloudUpload(courseImage)
+    console.log(upload);
 
     const result = await TutorServ.courseCreate(req.body, upload);
     res.status(201).send(response("course created", result));
@@ -23,7 +26,7 @@ class TutorContoller {
     //upload lesson video to cloudinary
     const file = req.files[0].path
     const upload = await cloudUpload(file) 
-    // console.log(upload);
+    console.log(upload);
     
     const result = await TutorServ.lessonCreate(req.body, upload);
     res.status(201).send(response("Lesson successfully created", result));

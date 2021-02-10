@@ -3,6 +3,8 @@ const Course = require ("./../models/course.model")
 const Module= require ("./../models/module.model") 
 const Lesson = require ("./../models/lesson.model") 
 const User = require ("./../models/user.model") 
+const _ = require('lodash');
+
 
 class TutorService {
 
@@ -10,13 +12,18 @@ class TutorService {
 
     //check user
     const user = await User.findOne({_id:data.tutor_id})
-    if(!user) throw new CustomError('this user is not a Registered',401)
+    if(_.isEmpty(user) )throw new CustomError('this user is not a Registered',401)
 
     if(user.role !== 'tutor') throw new CustomError("This User is not a tutor!")
     data.image_url = image.secure_url
-    data.price.lifeTime = data.price
-    data.price.subscription = (parseInt(data.price)/0.02)
-    return await new Course(data).save();
+    let newPrice = {
+      lifeTime: data.price,
+      subscription: (parseInt(data.price))*0.02
+    }
+    data.price = newPrice
+    console.log(data)
+    return data
+    // return await new Course(data).save();
   }
 
   async moduleCreate(course_id, data){
