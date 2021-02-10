@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
-const CustomError = require("./../utils/custom-error");
-const { mailer, APP_NAME } = require("./../config");
+const CustomError = require("../utils/custom-error");
+const { mailer, APP_NAME } = require("../config");
 
 class MailService {
   constructor(user) {
@@ -25,7 +25,6 @@ class MailService {
         pass: mailer.PASSWORD
       }
     });
-
     
     const result = await transporter.sendMail({
       from,

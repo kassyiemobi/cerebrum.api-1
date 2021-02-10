@@ -4,7 +4,7 @@ const crypto = require("crypto");
 
 const User = require("./../models/user.model");
 const Token = require("./../models/token.model");
-const MailServ = require("./../services/mail.service");
+const MailServ = require("./mail.service");
 const CustomError = require("./../utils/custom-error");
 const { JWT_SECRET, BCRYPT_SALT, url } = require("./../config");
 
