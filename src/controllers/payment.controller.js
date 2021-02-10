@@ -67,7 +67,6 @@ class PaymentContoller {
   //Test controller to render HTML for Payment test
   async getAll(req, res) {
     res.render(`index.pug`)
-  
   }
 
 
@@ -161,6 +160,11 @@ class PaymentContoller {
 
   async confirmPayment(req, res) {
     const result = await PaymentServ.confirmPayment(req.body);
+    res.status(200).send(responses("You have access to this course because you've paid!", result));
+  }
+
+  async getUserPayment(req, res) {
+    const result = await PaymentServ.getUserPayment(req.params.user_id);
     res.status(200).send(responses("You have access to this course because you've paid!", result));
   }
   

@@ -25,6 +25,12 @@ class PaymentService {
     return result
   }
 
+  async getUserPayment(data) {
+    let result = await Payment.find({user_id:data}) 
+    if(_.isEmpty(result)) throw new CustomError('This user do not have Payment record', 403)
+    return result
+  }
+
   
 
   

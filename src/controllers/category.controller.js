@@ -19,6 +19,8 @@ class categoryContoller {
     res.status(200).send(response("All category categorys", result)); 
   }
 
+  
+
 }
 
 module.exports = new categoryContoller();

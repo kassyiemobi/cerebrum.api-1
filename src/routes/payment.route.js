@@ -9,6 +9,7 @@ router.post("/confirm", PaymentCtrl.confirmPayment); // check if user paid for t
 router.get("/check/:payment_id", PaymentCtrl.checkPayment);
 router.get("/callback", PaymentCtrl.callback);
 router.get("/", PaymentCtrl.getAll);
+router.get("/:user_id", PaymentCtrl.getUserPayment);
 // router.post("/check/:payment_id", PaymentCtrl.checkPayment);
 
 
