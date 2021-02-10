@@ -52,4 +52,10 @@ const paymentSchema = new Schema({
 );
 
 
+payementSchema.pre(/^find/, async function (next) {
+    if(! this.populate({ 
+      path: "course_id", 
+      select: "name description price category image_url tutor_id" }
+      )); return next()
+   })
 module.exports = mongoose.model("payment", paymentSchema)
