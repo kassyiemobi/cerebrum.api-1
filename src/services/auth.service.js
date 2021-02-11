@@ -168,9 +168,11 @@ class AuthService {
 
   //profile reset Password
   async profileResetPassword(password,userId) {
+    const hash = await bcrypt.hash(password, BCRYPT_SALT);
+
     return await User.updateOne(
       { _id: userId },
-      { $set: { password: password} },
+      { $set: { password: hash} },
       { new: true }
     );
   }
