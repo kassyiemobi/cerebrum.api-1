@@ -57,6 +57,12 @@ class AuthContoller {
     const result = await AuthServ.resetPassword(req.body);
     res.status(200).send(response("Password updated", result));
   }
+
+  async profileResetPassword(req, res) {
+    const result = await AuthServ.profileResetPassword(req.body.password);
+    res.status(200).send(response("user Password updated", result));
+  }
+
   async updateProfile(req, res) {
     const file = req.files[0].path
     const upload = await cloudUpload(file)
