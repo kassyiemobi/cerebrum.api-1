@@ -110,7 +110,8 @@ class PaymentContoller {
               console.log('Payment saved!');
               transaction.save()
                 .then((trans)=> {
-                  res.redirect('http://localhost:3000/user/course/payment/success/?id='+pay._id);
+                  const payId = JSON.stringify(pay._id)
+                  res.redirect('http://localhost:3000/user/course/payment/success/?id='+payId);
                 })
                 .catch((e)=>{
                   console.log(e);
@@ -131,7 +132,8 @@ class PaymentContoller {
               const pay_id = pay._id
               transaction.save()
                 .then((trans)=> {
-                  res.redirect('http://localhost:3000/user/course/payment/success/'+pay_id);
+                  const payId = JSON.stringify(pay._id)
+                  res.redirect('http://localhost:3000/user/course/payment/success/?id='+payId);
                 })
                 .catch((e)=>{
                   console.log(e);
