@@ -107,7 +107,7 @@ class AuthService {
       createdAt: Date.now(),
     }).save();
 
-    const link = `${url.CLIENT_URL}/verify-email/?uid=${user._id}&verifyToken=${verifyToken}`;
+    const link = `${url.CLIENT_URL}/auth/verify-email/?uid=${user._id}&verifyToken=${verifyToken}`;
 
     // Send Mail
     await new MailServ(user).sendEmailVerificationMail(link);
@@ -158,7 +158,7 @@ class AuthService {
       createdAt: Date.now(),
     }).save();
 
-    const link = `${url.CLIENT_URL}/reset-password?uid=${user._id}&resetToken=${resetToken}`;
+    const link = `${url.CLIENT_URL}/auth/reset-password?uid=${user._id}&resetToken=${resetToken}`;
 
     // Send Mail
     await new MailServ(user).sendPasswordResetMail(link);
