@@ -110,8 +110,7 @@ class PaymentContoller {
               console.log('Payment saved!');
               transaction.save()
                 .then((trans)=> {
-                  const payId = JSON.stringify(pay._id)
-                  res.redirect('http://localhost:3000/user/course/payment/success/?id='+payId);
+                  res.redirect('http://localhost:3000/user/course/payment/success/?id='+pay._id);
                 })
                 .catch((e)=>{
                   console.log(e);
@@ -119,7 +118,7 @@ class PaymentContoller {
             })
             .catch((e)=>{
               console.log(e.response);
-              res.redirect('http://localhost:3000/user/course/payment/fail/');
+              res.redirect('http://localhost:3000/user/course/payment/fail');
             });
           }else{
             newPay.sub_date = 0
@@ -133,7 +132,7 @@ class PaymentContoller {
               transaction.save()
                 .then((trans)=> {
                   const payId = JSON.stringify(pay._id)
-                  res.redirect('http://localhost:3000/user/course/payment/success/?id='+payId);
+                  res.redirect('http://localhost:3000/user/course/payment/success/?id='+pay._id);
                 })
                 .catch((e)=>{
                   console.log(e);
@@ -141,7 +140,7 @@ class PaymentContoller {
             })
             .catch((e)=>{
               console.log(e.response);
-              res.redirect('http://localhost:3000/user/course/payment/failed');
+              res.redirect('http://localhost:3000/user/course/payment/fail');
             });
 
           }
