@@ -61,8 +61,9 @@ class AuthContoller {
     const file = req.files[0].path
     const upload = await cloudUpload(file)
     console.log(upload);
-    await UserService.update(req.params.user_id, { image_url: upload });
-    res.status(200).send(response("Your profile was successfully updated", { image_url: result.secure_url }));
+    req.body.image_url = upload
+    const result = await UserService.update(req.params.user_id, req.body );
+    res.status(200).send(response("Your profile was successfully updated", result));
   }
 }
 
