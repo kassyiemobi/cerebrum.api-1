@@ -55,7 +55,7 @@ const paymentSchema = new Schema({
 paymentSchema.pre(/^find/, async function (next) {
     if(! this.populate({ 
       path: "course_id", 
-      select: "name description price category image_url tutor_id" }
+      select: "_id name description price category image_url tutor_id" }
       )); return next()
    })
 
