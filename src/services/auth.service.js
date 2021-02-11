@@ -170,7 +170,7 @@ class AuthService {
   async profileResetPassword(password,userId) {
     return await User.updateOne(
       { _id: userId },
-      { $set: { password: data} },
+      { $set: { password: password} },
       { new: true }
     );
   }
