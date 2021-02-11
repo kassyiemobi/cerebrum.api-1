@@ -59,7 +59,7 @@ class AuthContoller {
   }
 
   async profileResetPassword(req, res) {
-    const result = await AuthServ.profileResetPassword(req.body.password);
+    const result = await AuthServ.profileResetPassword(req.body.password, req.params.user_id);
     res.status(200).send(response("user Password updated", result));
   }
 
