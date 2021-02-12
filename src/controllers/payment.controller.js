@@ -110,7 +110,7 @@ class PaymentContoller {
               console.log('Payment saved!');
               transaction.save()
                 .then((trans)=> {
-                  res.redirect('http://localhost:3000/user/course/payment/success/?id='+pay._id+'&&courseId='+pay.course_id);
+                  res.redirect('http://cerebrum-v1.web.app/user/course/payment/success/?id='+pay._id+'&&courseId='+pay.course_id);
                 })
                 .catch((e)=>{
                   console.log(e);
@@ -118,7 +118,7 @@ class PaymentContoller {
             })
             .catch((e)=>{
               console.log(e.response);
-              res.redirect('http://localhost:3000/user/course/payment/fail');
+              res.redirect('http://cerebrum-v1.web.app/user/course/payment/fail');
             });
           }else{
             newPay.sub_date = 0
@@ -132,7 +132,7 @@ class PaymentContoller {
               transaction.save()
                 .then((trans)=> {
                   const payId = JSON.stringify(pay._id)
-                  res.redirect('http://https://cerebrum-v1.web.app/user/course/payment/success/?id='+pay._id+'&&courseId='+pay.course_id);
+                  res.redirect('http://cerebrum-v1.web.app/user/course/payment/success/?id='+pay._id+'&&courseId='+pay.course_id);
                 })
                 .catch((e)=>{
                   console.log(e);
@@ -140,7 +140,7 @@ class PaymentContoller {
             })
             .catch((e)=>{
               console.log(e.response);
-              res.redirect('http://https://cerebrum-v1.web.app/user/course/payment/fail');
+              res.redirect('http://cerebrum-v1.web.app/user/course/payment/fail');
             });
 
           }
