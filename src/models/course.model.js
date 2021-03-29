@@ -49,6 +49,7 @@ const courseSchema = new Schema({
   },
   
 });
+// this is to interact with the search functionality from the schema
 
 courseSchema.index({
   name: "text",
@@ -57,7 +58,7 @@ courseSchema.index({
   price: "text",
   image_url: "text",
 });
-
+//for populating courses with tutor // using the regex ^find to associate it with any method .find
 courseSchema.pre(/^find/, async function (next) {
   if(! this.populate({ 
     path: "tutor_id", 

@@ -8,23 +8,26 @@ exports.search = async (req, res) => {
   const Query = req.query.q.trim();
   const query = new RegExp(Query, "gi");
 
-  const courses= await Course
-  .find({ name: query }).select(["_id","name","category","description","price", "image_url" ]);
-
-  const users = await user.find({ $text: { $search: query } }).select([
+  //this queries for all these elements in the course model when a course is being searched
+  const courses = await Course.find({ name: query }).select([
     "_id",
-    "firstName",
-    "lastName",
+    "name",
+    "category",
+    "description",
+    "price",
     "image_url",
-    "email"
+  ]);
 
+  //this queries for all these elements in the User model when a course is being searched
+  const users = await user
+    .find({ $text: { $search: query } })
+    .select(["_id", "firstName", "lastName", "image_url", "email"]);
 
-    ]);
-   
-    if (_.isEmpty (users) && _.isEmpty(courses)) throw new CustomError("Does not exist")
-    
- 
-   const results = {
+  // if theres no user or the course doesnt exist, throw Error.
+  if (_.isEmpty(users) && _.isEmpty(courses))
+    throw new CustomError("Does not exist");
+
+  const results = {
     courses,
     users,
   };
