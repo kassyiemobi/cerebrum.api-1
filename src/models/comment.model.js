@@ -23,10 +23,15 @@ const commentSchema = new Schema({
        ref: 'user',
        required: [true, 'comment must have a user']
   }
+},
+  {
+       toJSON:{ virtuals: true},
+       toObject:{ virtuals:true}
+  }
 
   
 
-})
+)
 
 
 module.exports = mongoose.model("comment", commentSchema)

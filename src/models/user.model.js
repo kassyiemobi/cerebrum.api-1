@@ -33,7 +33,8 @@ const userSchema = new Schema(
     },
     image_url: {
       type: String,
-      default: "https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1-744x744.jpg"
+      default:
+        "https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1-744x744.jpg",
     },
     image_name: {
       type: String,
@@ -61,6 +62,10 @@ const userSchema = new Schema(
   },
   {
     timestamps: true,
+  },
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
 

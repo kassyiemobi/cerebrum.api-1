@@ -30,8 +30,14 @@ const lessonSchema = new Schema({
 },
   {
     timestamps: true,
+  },
+
+ {
+       toJSON:{ virtuals: true},
+       toObject:{ virtuals:true}
   }
 );
+
 
 lessonSchema.pre(/^find/, async function (next) {
  if(! this.populate({ 
