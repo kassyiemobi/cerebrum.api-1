@@ -5,7 +5,12 @@ const response = require("./../utils/response");
 class CommentContoller {
 
   async create(req, res) {
-    const result = await CommentServ.create(req.body);
+    const comment ={
+      user: req.$user.id,
+      course: req.params.courseId,
+      body: req.body.body
+    }
+    const result = await CommentServ.create(comment);
     res.status(201).send(response("comment created", result));
   } 
 

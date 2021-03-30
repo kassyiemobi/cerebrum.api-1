@@ -4,6 +4,7 @@ const CustomError = require("./../utils/custom-error");
 class CommentService {
 
   async create(data) {
+    console.log(data)
     return await new Comment(data).save();
   }
 

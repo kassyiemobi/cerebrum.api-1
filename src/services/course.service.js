@@ -12,7 +12,7 @@ class CourseService {
     return course
   }
   async getOneCourse(data) {
-    const course = await Course.find({_id:data}, { __v: 0 });
+    const course = await Course.find({_id:data}, { __v: 0 }) .populate('comment');
     if (!course) throw new CustomError("Course details not avaliable", 403)
     return course;
   }

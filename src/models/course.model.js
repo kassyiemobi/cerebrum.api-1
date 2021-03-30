@@ -48,7 +48,19 @@ const courseSchema = new Schema({
     default: true,
   },
   
-});
+},
+{
+  toJSON: {virtuals: true},
+  toObject: { virtuals: true}
+}
+);
+//this presents the comments on the courses when the courses are called /virtual populate
+courseSchema.virtual('comments',{
+  ref:'comment',
+  foreignField:'lesson',
+  localField : '_id'
+
+})
 // this is to interact with the search functionality from the schema
 
 courseSchema.index({
