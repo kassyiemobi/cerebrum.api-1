@@ -2,16 +2,17 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const replySchema = new Schema({
-     reply: {
+     response: {
           type:String
      },
      createdAt:{
-          Date,
+        type: Date,
      default :Date.now
      },
      comment:{
           type: mongoose.Schema.ObjectId,
-          ref:'comment'
+          ref:'comment',
+          required:[true, 'reply must belong to a comment']
      }
 });
 replySchema.pre(/^find/, async function (next) {

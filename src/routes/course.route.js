@@ -4,6 +4,8 @@ const CommentCtrl = require("./../controllers/comment.controller");
 const AuthCtrl = require("./../controllers/auth.controller");
 const auth = require("./../middlewares/auth.middleware");
 const { role } = require("./../config");
+const ReplyCtrl = require('./../controllers/reply.controller');
+const replyController = require("./../controllers/reply.controller");
 
 
 
@@ -20,9 +22,9 @@ router.put("/:courseId/comment/:commentId", auth(role.LEARNER), CommentCtrl.upda
 router.delete("/:courseId/comment/:commentId",auth(role.LEARNER), CommentCtrl.delete);
 router.post(
   "/:courseId/comment/:commentId/reply",
-  auth(role.LEARNER),
-  
-);
+  auth(role.Tutor),
+  replyController.create
+  );
 
 
 

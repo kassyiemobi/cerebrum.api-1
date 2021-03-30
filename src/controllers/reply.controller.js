@@ -5,7 +5,11 @@ const response = require("./../utils/response");
 class ReplyContoller {
 
   async create(req, res) {
-    const result = await ReplyServ.create(req.body);
+    const reply = {
+      reply:req.body.reply,
+      comment:req.params.commentId
+    }
+    const result = await ReplyServ.create(reply);
     res.status(201).send(response("reply created", result));
   } 
 
