@@ -18,6 +18,11 @@ router.get("/:courseId/comment", CommentCtrl.getAll);
 router.get("/:courseId/comment/:commentId", CommentCtrl.getOne);
 router.put("/:courseId/comment/:commentId", auth(role.LEARNER), CommentCtrl.update);
 router.delete("/:courseId/comment/:commentId",auth(role.LEARNER), CommentCtrl.delete);
+router.post(
+  "/:courseId/comment/:commentId/reply",
+  auth(role.LEARNER),
+  
+);
 
 
 

@@ -5,7 +5,7 @@ const response = require("./../utils/response");
 class CommentContoller {
 
   async create(req, res) {
-    const comment ={
+    const comment = {
       user: req.$user.id,
       course: req.params.courseId,
       body: req.body.body
